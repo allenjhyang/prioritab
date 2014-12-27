@@ -1,34 +1,50 @@
 body {
     background-color: #333333;
     color: white;
+    font-size: 20px;
+    overflow: hidden;
 }
 
 #top-row {
     width: 80%;
+    height: 25%;
     margin-left: auto;
     margin-right: auto;
     color: gray;
+    line-height: 3em;
 }
 
 #clockbox {
-    font-size: 50px;
+    font-size: 2.5em;
     float: left;
+    line-height: 3em;
 }
 
 #weatherbox {
     float: left;
     margin-left: 50px;
     color: white;
+    font-size: 2.5em;
+    /*line-height: 3em; Why does removing this center things vertically correctly? */
 }
 
 #bottom-row {
     clear: both;
     width: 80%;
+    height: 75%;
     margin-left: auto;
     margin-right: auto;
 }
 
-.priorities-list {
+.priorities {
     float: left;
     width: 30%;
+    margin: 0 10px 0 10px;
+}
+
+.priorities-title {
+    text-align: center;
+    border-bottom: 1px solid;
+    padding-bottom: 5px;
+    font-size: 1.5em;
 }
