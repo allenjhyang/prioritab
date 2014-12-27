@@ -1,0 +1,31 @@
+{
+    "name": "Get That Case!",
+    "description": "Helps you order an HBS case",
+    "version": "0.1.1",
+    "permissions": [
+        "activeTab"
+    ],
+    "icons": {"128": "bookicon.png"},
+    "background": {
+        "scripts": ["jquery-1.11.1.min.js", "firebase.min.js", "background_script.js"],
+        "persistent": false
+    },
+    "manifest_version": 2,
+    "permissions": [
+        "cookies",
+        "tabs",
+        "http://hbs.edu/*",
+        "http://cb.hbsp.harvard.edu/cb/search/*",
+        "https://inside.hbs.edu/Departments/KLS/Lists/HBP%20Case%20Request%20Form/Item/newifs.aspx"
+    ],
+    "content_scripts": [
+    {
+        "js": ["jquery-1.11.1.min.js", "jquery_regex.js", "hbp_script.js"],
+        "matches": ["http://cb.hbsp.harvard.edu/cb/search/*", "http://cb.hbsp.harvard.edu/cb/web/*"]
+    },
+    {
+        "js": ["jquery-1.11.1.min.js", "firebase.min.js", "form_script.js"],
+        "matches": ["https://inside.hbs.edu/Departments/KLS/Lists/HBP%20Case%20Request%20Form/Item/newifs.aspx"]
+    }
+    ]
+}
