@@ -33,4 +33,8 @@ function GetClock(){
 window.onload = function() {
     GetClock();
     setInterval(GetClock, 1000);
+    chrome.storage.sync.set({'testValue': 'This is Allen'});
+    chrome.storage.sync.get('testValue', function(retrieved) {
+        document.getElementById('testItem').innerHTML = retrieved.testValue;
+    });
 };

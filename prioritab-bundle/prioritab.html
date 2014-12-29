@@ -3,9 +3,13 @@
 <head>
     <title>Prioritab</title>
     <link href="prioritab.css" rel="stylesheet">
-    <script src="prioritab.js"></script>
-</head>
+    <script src="prioritab.js"></script> </head>
 
+    <script src="lib/jquery-1.11.1.min.js"></script>
+    <script src="lib/jquery-ui-1.11.2.js"></script>
+    <script src="lib/jquery.inlineedit.js"></script>
+    <script src="lib/pubsub.js"></script>
+    <script src="sortaeditalist.js"></script> </head>
 <body>
     <h1>Welcome to your priorities</h1>
     <div id="top-row">
@@ -21,10 +25,20 @@
                 Today
             </div>
             <ul class="priorities-list">
-                <li>Finish Prioritab</li>
+                <li id="testItem">Finish Prioritab</li>
                 <li>Refine Prioritab</li>
                 <li>Spread Prioritab</li>
             </ul>
+
+            <div id="list-test">
+                <form id="todo-form">
+                    <input id="todo" type="text" />
+                    <input id="submit" type="submit" value="Add">
+                </form>
+                <ul id="show-items"></ul>
+                <a href="#" id="clear-all">Clear All</a>
+            </div>
+
         </div>
         <div id="week-pris" class="priorities">
             <div class = "priorities-title">
