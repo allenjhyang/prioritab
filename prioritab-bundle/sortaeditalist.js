@@ -18,13 +18,9 @@ $(function() {
     orderList = localStorage.getItem('todo-orders');
 
     orderList = orderList ? orderList.split(',') : [];
-
     for( j = 0, k = orderList.length; j < k; j++) {
         $itemList.append(
-            "<li id='" + orderList[j] + "'>"
-            + "<span class='editable'>"
-            + localStorage.getItem(orderList[j])
-            + "</span> <a href='#'>X</a></li>"
+            "<li id='" + orderList[j] + "'>" + "<span class='editable'>" + localStorage.getItem(orderList[j]) + "</span> <a href='#'>X</a></li>"
         );
     }
 
@@ -90,10 +86,7 @@ $(function() {
 
             // Append a new list item with the value of the new todo list
             $itemList.append(
-                "<li id='todo-" + i + "'>"
-                + "<span class='editable'>"
-                + localStorage.getItem("todo-" + i)
-                + " </span><a href='#'>x</a></li>"
+                "<li id='todo-" + i + "'>" + "<span class='editable'>" + localStorage.getItem("todo-" + i) + " </span><a href='#'>x</a></li>"
             );
 
             $.publish('/regenerate-list/', []);
