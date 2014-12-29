@@ -48,3 +48,16 @@ body {
     padding-bottom: 5px;
     font-size: 1.5em;
 }
+
+.clear-all-link {
+    font-size: inherit;
+    color: inherit;
+    text-decoration: none;
+}
+
+.add-item-button {
+    border: 1px white solid;
+    background: none;
+    font-size: 0.75em;
+    color: inherit;
+}
