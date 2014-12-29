@@ -6,10 +6,10 @@ $(function() {
         j = 0,
         k,
         $form = $('#todo-form'),
-        $removeLink = $('#show-items li a'),
-        $itemList = $('#show-items'),
+        $removeLink = $('#shown-items-left li a'),
+        $itemListLeft = $('#shown-items-left'),
         $editable = $('.editable'),
-        $clearAll = $('#clear-all'),
+        $clearAll = $('#clear-all-left'),
         $newTodo = $('#todo'),
         order = [],
         orderList;
@@ -19,7 +19,7 @@ $(function() {
 
     orderList = orderList ? orderList.split(',') : [];
     for( j = 0, k = orderList.length; j < k; j++) {
-        $itemList.append(
+        $itemListLeft.append(
             "<li id='" + orderList[j] + "'>" + "<span class='editable'>" + localStorage.getItem(orderList[j]) + "</span> <a href='#'>X</a></li>"
         );
     }
@@ -31,7 +31,7 @@ $(function() {
     });
 
     // Remove todo
-    $itemList.delegate('a', 'click', function(e) {
+    $itemListLeft.delegate('a', 'click', function(e) {
         var $this = $(this);
 
         e.preventDefault();
@@ -39,7 +39,7 @@ $(function() {
     });
 
     // Sort todo
-    $itemList.sortable({
+    $itemListLeft.sortable({
         revert: true,
         stop: function() {
             $.publish('/regenerate-list/', []);
@@ -63,7 +63,7 @@ $(function() {
     });
 
     // Fade In and Fade Out the Remove link on hover
-    $itemList.delegate('li', 'mouseover mouseout', function(event) {
+    $itemListLeft.delegate('li', 'mouseover mouseout', function(event) {
         var $this = $(this).find('a');
 
         if(event.type === 'mouseover') {
@@ -85,7 +85,7 @@ $(function() {
             localStorage.setItem('todo-counter', i);
 
             // Append a new list item with the value of the new todo list
-            $itemList.append(
+            $itemListLeft.append(
                 "<li id='todo-" + i + "'>" + "<span class='editable'>" + localStorage.getItem("todo-" + i) + " </span><a href='#'>x</a></li>"
             );
 
@@ -120,7 +120,7 @@ $(function() {
     });
 
     $.subscribe('/regenerate-list/', function() {
-        var $todoItemLi = $('#show-items li');
+        var $todoItemLi = $('#shown-items-left li');
         // Empty the order array
         order.length = 0;
 
@@ -137,7 +137,7 @@ $(function() {
     });
 
     $.subscribe('/clear-all/', function() {
-        var $todoListLi = $('#show-items li');
+        var $todoListLi = $('#shown-items-left li');
 
         order.length = 0;
         localStorage.clear();
