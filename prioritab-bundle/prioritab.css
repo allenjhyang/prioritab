@@ -19,8 +19,8 @@ a {
 }
 
 ul li {
-    font-size: 1.25em;
-    line-height: 1.5em;
+    font-size: 1.2em;
+    line-height: 1.25em;
 }
 
 /* TOP ROW - DATETIME & COUNTDOWN */
@@ -132,6 +132,10 @@ ul li {
     margin: 0 10px 0 10px;
     display: inline-block;
     vertical-align: top;
+}
+
+.shown-items {
+    text-align: left;
 }
 
 .priorities-title {
