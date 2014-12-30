@@ -49,17 +49,21 @@
                 <a href="#" id="clear-all-mid" class="clear-all-link" data-list="mid">Clear All</a>
             </div>
 
-
         </div>
         <div id="month-pris" class="priorities">
             <div class="priorities-title">
                 This Month
             </div>
-            <ul class="priorities-list">
-                <li>Finish Prioritab</li>
-                <li>Refine Prioritab</li>
-                <li>Spread Prioritab</li>
-            </ul>
+
+            <div id="list-right">
+                <ul id="shown-items-right"></ul>
+                <form id="todo-form-right" data-list="right">
+                    <input class="todo" type="text" data-list="right" />
+                    <input id="submit" type="submit" class="add-item-button" value="Add" data-list="right">
+                </form>
+                <a href="#" id="clear-all-right" class="clear-all-link" data-list="right">Clear All</a>
+            </div>
+
         </div>
     </div>
 </body>

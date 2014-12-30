@@ -7,9 +7,11 @@ $(function() {
         k,
         $formLeft = $('#todo-form-left'),
         $formMid = $('#todo-form-mid'),
+        $formRight = $('#todo-form-right'),
         $removeLink = $('#shown-items-left li a'),
         $itemListLeft = $('#shown-items-left'),
         $itemListMid = $('#shown-items-mid'),
+        $itemListRight = $('#shown-items-right'),
         $editable = $('.editable'),
         $clearAll = $('.clear-all-link'),
         $newTodo = $('.todo'),
@@ -49,6 +51,13 @@ $(function() {
             "<li id='" + orderListMid[j] + "'>" + localStorage.getItem(orderListMid[j]) + " <a href='#'>X</a></li>"
         );
     }
+    for (j = 0, k = orderListRight.length; j < k; j++) {
+        $itemListRight.append(
+            // "<li id='" + orderListMid[j] + "'>" + "<span class='editable'>" + localStorage.getItem(orderListMid[j]) + "</span> <a href='#'>X</a></li>"
+            "<li id='" + orderListRight[j] + "'>" + localStorage.getItem(orderListRight[j]) + " <a href='#'>X</a></li>"
+        );
+    }
+
     // Add todo
     $formLeft.submit(function(e) {
         e.preventDefault();
@@ -56,6 +65,11 @@ $(function() {
     });
 
     $formMid.submit(function(e) {
+        e.preventDefault();
+        $.publish('/add/', []);
+    });
+
+    $formRight.submit(function(e) {
         e.preventDefault();
         $.publish('/add/', []);
     });
@@ -75,6 +89,13 @@ $(function() {
         $.publish('/remove/', [$this]);
     });
 
+    $itemListRight.delegate('a', 'click', function(e) {
+        var $this = $(this);
+
+        e.preventDefault();
+        $.publish('/remove/', [$this]);
+    });
+
     // Sort todo
     $itemListLeft.sortable({
         revert: true,
@@ -84,6 +105,13 @@ $(function() {
     });
 
     $itemListMid.sortable({
+        revert: true,
+        stop: function() {
+            $.publish('/regenerate-list/', []);
+        }
+    });
+
+    $itemListRight.sortable({
         revert: true,
         stop: function() {
             $.publish('/regenerate-list/', []);
@@ -119,6 +147,16 @@ $(function() {
     });
 
     $itemListMid.delegate('li', 'mouseover mouseout', function(event) {
+        var $this = $(this).find('a');
+
+        if(event.type === 'mouseover') {
+            $this.stop(true, true).fadeIn();
+        } else {
+            $this.stop(true, true).fadeOut();
+        }
+    });
+
+    $itemListRight.delegate('li', 'mouseover mouseout', function(event) {
         var $this = $(this).find('a');
 
         if(event.type === 'mouseover') {
@@ -199,6 +237,7 @@ $(function() {
     $.subscribe('/regenerate-list/', function() {
         var $todoItemsLeft = $('#shown-items-left li'),
             $todoItemsMid = $('#shown-items-mid li');
+            $todoItemsRight = $('#shown-items-right li');
         // Empty the order array
         order.length = 0;
 
@@ -209,6 +248,11 @@ $(function() {
         });
 
         $todoItemsMid.each(function() {
+            var id = $(this).attr('id');
+            order.push(id);
+        });
+
+        $todoItemsRight.each(function() {
             var id = $(this).attr('id');
             order.push(id);
         });
