@@ -8,7 +8,7 @@ body {
 }
 
 .vertical-gap {
-    height: 50px;
+    height: 100px;
     display: block;
     clear: both;
 }
@@ -16,56 +16,54 @@ body {
 /* TOP ROW - DATETIME & COUNTDOWN */
 #top-row {
     width: 80%;
-    /*height: 30%;*/
     margin-left: auto;
     margin-right: auto;
     margin-top: 100px;
-    /*color: white;*/
-    /*line-height: 3em;*/
+}
+
+#top-row-table {
+    width: 100%;
 }
 
 #nowbox {
     font-size: 2.5em;
     float: left;
-    /*line-height: 3em;*/
-    /*width: 25%;*/
-    /*line-height: 2.6em;*/
 }
 
 #clockbox {
-    /*height: 33%;*/
     text-align: center;
     border: 1px solid;
     vertical-align: middle;
     padding: 10px 20px 10px 20px;
     font-size: 1.2em;
-    /*font-weight: bold;*/
+    margin-left: 10px;
     line-height: 1.5em;
 }
 
 #daybox {
-    /*height: 33%;*/
     text-align: center;
     font-size: 0.75em;
     margin-top: 20px;
 }
 
 #datebox {
-    /*height: 33%;*/
     text-align: center;
     font-size: 0.75em;
+}
+
+.gap-cell {
+    width: 100px;
 }
 
 #countdownbox {
     font-size: 1.5em;
     float: right;
-    /*width: 70%;*/
-    margin-left: 60px;
 }
 
 .countdown-title {
     text-align: center;
     clear: both;
+    margin-bottom: 25px;
 }
 
 .countdown-segment {
@@ -83,15 +81,22 @@ body {
 #bottom-row {
     clear: both;
     width: 80%;
-    /*height: 65%;*/
     margin-left: auto;
     margin-right: auto;
+    text-align: justify;
+}
+
+#bottom-row:after {
+    content: "";
+    width: 100%;
+    display: inline-block;
 }
 
 .priorities {
-    float: left;
     width: 30%;
     margin: 0 10px 0 10px;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .priorities-title {
