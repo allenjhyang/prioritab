@@ -55,7 +55,9 @@ window.onload = function() {
             $(this).siblings('.edit-priorities-link').fadeIn();
         });
         $(this).hide();
-        $(this).siblings('.edit-priorities').fadeIn();
+        prioritiesList = $(this).siblings('.edit-priorities')[0];
+        $(prioritiesList).fadeIn();
+        $(prioritiesList).find('input.todo').focus();
     });
 
     $('.hide-edit').click(function (e) {
