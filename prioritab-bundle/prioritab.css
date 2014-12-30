@@ -5,6 +5,7 @@ body {
     font-size: 20px;
     overflow: hidden;
     min-width: 1200px;
+    max-width: 1800px;
 }
 
 a {
@@ -17,6 +18,11 @@ a {
     clear: both;
 }
 
+ul li {
+    font-size: 1.25em;
+    line-height: 1.5em;
+}
+
 /* TOP ROW - DATETIME & COUNTDOWN */
 #top-row {
     width: 80%;
@@ -26,12 +32,24 @@ a {
 }
 
 #top-row-table {
-    width: 100%;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.gap-cell {
+    width: 5%;
+    max-width: 10px;
+}
+
+#nowbox-td {
+    width: 350px;
 }
 
 #nowbox {
     font-size: 2.5em;
     float: left;
+    width: 100%;
 }
 
 #clockbox {
@@ -40,7 +58,7 @@ a {
     vertical-align: middle;
     padding: 10px 20px 10px 20px;
     font-size: 1.2em;
-    margin-left: 10px;
+    margin: 0 10px 0 10px;
     line-height: 1.5em;
 }
 
@@ -55,13 +73,10 @@ a {
     font-size: 0.75em;
 }
 
-.gap-cell {
-    width: 100px;
-}
-
 #countdownbox {
     font-size: 1.5em;
     float: right;
+    width: 100%;
 }
 
 .countdown-title {
@@ -70,10 +85,26 @@ a {
     margin-bottom: 25px;
 }
 
+#countdownbox-justifier {
+    width: 100%;
+    clear: both;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: justify;
+}
+
+#countdownbox-justifier:after {
+    content: "";
+    width: 100%;
+    display: inline-block;
+}
+
 .countdown-segment {
     float: left;
     text-align: center;
-    width: 325px;
+    width: 33%;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .countdown-amount {
