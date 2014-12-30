@@ -42,21 +42,23 @@ $(function() {
     for (j = 0, k = orderListLeft.length; j < k; j++) {
         $itemListLeft.append(
             // "<li id='" + orderListLeft[j] + "'>" + "<span class='editable'>" + localStorage.getItem(orderListLeft[j]) + "</span> <a href='#'>X</a></li>"
-            "<li id='" + orderListLeft[j] + "'>" + localStorage.getItem(orderListLeft[j]) + " <a href='#'>X</a></li>"
+            "<li id='" + orderListLeft[j] + "'>" + localStorage.getItem(orderListLeft[j]) + "&nbsp;&nbsp;&nbsp;<a href='#'>X</a></li>"
         );
     }
     for (j = 0, k = orderListMid.length; j < k; j++) {
         $itemListMid.append(
             // "<li id='" + orderListMid[j] + "'>" + "<span class='editable'>" + localStorage.getItem(orderListMid[j]) + "</span> <a href='#'>X</a></li>"
-            "<li id='" + orderListMid[j] + "'>" + localStorage.getItem(orderListMid[j]) + " <a href='#'>X</a></li>"
+            "<li id='" + orderListMid[j] + "'>" + localStorage.getItem(orderListMid[j]) + "&nbsp;&nbsp;&nbsp;<a href='#'>X</a></li>"
         );
     }
     for (j = 0, k = orderListRight.length; j < k; j++) {
         $itemListRight.append(
             // "<li id='" + orderListMid[j] + "'>" + "<span class='editable'>" + localStorage.getItem(orderListMid[j]) + "</span> <a href='#'>X</a></li>"
-            "<li id='" + orderListRight[j] + "'>" + localStorage.getItem(orderListRight[j]) + " <a href='#'>X</a></li>"
+            "<li id='" + orderListRight[j] + "'>" + localStorage.getItem(orderListRight[j]) + "&nbsp;&nbsp;&nbsp;<a href='#'>X</a></li>"
         );
     }
+
+    $('li a').fadeOut();
 
     // Add todo
     $formLeft.submit(function(e) {
@@ -139,7 +141,7 @@ $(function() {
     $itemListLeft.delegate('li', 'mouseover mouseout', function(event) {
         var $this = $(this).find('a');
 
-        if(event.type === 'mouseover') {
+        if (event.type === 'mouseover') {
             $this.stop(true, true).fadeIn();
         } else {
             $this.stop(true, true).fadeOut();
@@ -203,8 +205,9 @@ $(function() {
             // Append a new list item with the value of the new todo list
             listToImpact.append(
                 // "<li id='todo-" + listID + '-' + i + "'>" + "<span class='editable'>" + localStorage.getItem("todo-" + listID + '-' + i) + " </span><a href='#'>x</a></li>"
-                "<li id='todo-" + listID + '-' + i + "'>" + localStorage.getItem("todo-" + listID + '-' + i) + " <a href='#'>x</a></li>"
+                "<li id='todo-" + listID + '-' + i + "'>" + localStorage.getItem("todo-" + listID + '-' + i) + "&nbsp;&nbsp;&nbsp;<a href='#'>x</a></li>"
             );
+            $('li a:visible').fadeOut();
 
             $.publish('/regenerate-list/', []);
 

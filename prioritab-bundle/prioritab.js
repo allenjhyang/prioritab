@@ -48,4 +48,18 @@ window.onload = function() {
     CountdownMonthYear();
     setInterval(GetTime, 1000);
     setInterval(CountdownDay, 900000);
+
+    $('.edit-priorities-link').click(function (e) {
+        $('.edit-priorities').each(function(index) {
+            $(this).hide();
+            $(this).siblings('.edit-priorities-link').fadeIn();
+        });
+        $(this).hide();
+        $(this).siblings('.edit-priorities').fadeIn();
+    });
+
+    $('.hide-edit').click(function (e) {
+        $(this).parent().hide();
+        $(this).parent().siblings('.edit-priorities-link').show();
+    });
 };

@@ -4,9 +4,9 @@
     <title>Prioritab</title>
     <link href="prioritab.css" rel="stylesheet">
     <script src="lib/moment.min.js"></script>
+    <script src="lib/jquery-1.11.1.min.js"></script>
     <script src="prioritab.js"></script> </head>
 
-    <script src="lib/jquery-1.11.1.min.js"></script>
     <script src="lib/jquery-ui-1.11.2.js"></script>
     <script src="lib/jquery.inlineedit.js"></script>
     <script src="lib/pubsub.js"></script>
@@ -56,11 +56,17 @@
 
             <div id="list-left">
                 <ul id="shown-items-left"></ul>
-                <form id="todo-form-left" data-list="left">
-                    <input class="todo" type="text" data-list="left" />
-                    <input id="submit" type="submit" class="add-item-button" value="Add" data-list="left">
-                </form>
-                <a href="#" id="clear-all-left" class="clear-all-link" data-list="left">Clear All</a>
+                <a class="edit-priorities-link" href="#">Edit</a>
+                <div class="edit-priorities">
+                    <form id="todo-form-left" data-list="left">
+                        <input class="todo" type="text" data-list="left" />
+                        <input id="submit" type="submit" class="add-item-button" value="Add" data-list="left">
+                    </form>
+                    <a href="#" id="clear-all-left" class="clear-all-link" data-list="left">Clear All</a>
+                    |
+                    <a href="#" class="hide-edit">Hide</a>
+
+                </div>
             </div>
 
         </div>
@@ -71,11 +77,16 @@
 
             <div id="list-mid">
                 <ul id="shown-items-mid"></ul>
-                <form id="todo-form-mid" data-list="mid">
-                    <input class="todo" type="text" data-list="mid" />
-                    <input id="submit" type="submit" class="add-item-button" value="Add" data-list="mid">
-                </form>
-                <a href="#" id="clear-all-mid" class="clear-all-link" data-list="mid">Clear All</a>
+                <a class="edit-priorities-link" href="#">Edit</a>
+                <div class="edit-priorities">
+                    <form id="todo-form-mid" data-list="mid">
+                        <input class="todo" type="text" data-list="mid" />
+                        <input id="submit" type="submit" class="add-item-button" value="Add" data-list="mid">
+                    </form>
+                    <a href="#" id="clear-all-mid" class="clear-all-link" data-list="mid">Clear All</a>
+                    |
+                    <a href="#" class="hide-edit">Hide</a>
+                </div>
             </div>
 
         </div>
@@ -86,11 +97,16 @@
 
             <div id="list-right">
                 <ul id="shown-items-right"></ul>
-                <form id="todo-form-right" data-list="right">
-                    <input class="todo" type="text" data-list="right" />
-                    <input id="submit" type="submit" class="add-item-button" value="Add" data-list="right">
-                </form>
-                <a href="#" id="clear-all-right" class="clear-all-link" data-list="right">Clear All</a>
+                <a class="edit-priorities-link" href="#">Edit</a>
+                <div class="edit-priorities">
+                    <form id="todo-form-right" data-list="right">
+                        <input class="todo" type="text" data-list="right" />
+                        <input id="submit" type="submit" class="add-item-button" value="Add" data-list="right">
+                    </form>
+                    <a href="#" id="clear-all-right" class="clear-all-link" data-list="right">Clear All</a>
+                    |
+                    <a href="#" class="hide-edit">Hide</a>
+                </div>
             </div>
         </div>
 

@@ -7,6 +7,10 @@ body {
     min-width: 1200px;
 }
 
+a {
+    color: gray;
+}
+
 .vertical-gap {
     height: 100px;
     display: block;
@@ -108,13 +112,56 @@ body {
 
 .clear-all-link {
     font-size: inherit;
-    color: inherit;
+    /*color: inherit;*/
     text-decoration: none;
 }
 
 .add-item-button {
-    border: 1px white solid;
+    /*border: 1px white solid;*/
+    border: none;
+    box-shadow: none;
     background: none;
-    font-size: 0.75em;
+    font-size: 1em;
     color: inherit;
+}
+
+li a {
+    text-decoration: none;
+    color: gray;
+}
+
+.edit-priorities-link {
+    display: block;
+    color: gray;
+    text-align: center;
+    text-decoration: none;
+}
+
+.hide-edit {
+    text-decoration: none;
+}
+
+.edit-priorities {
+    text-align: center;
+    display: none;
+}
+
+form {
+    display: inline-block;
+    margin-right: 20px;
+    width: 100%;
+}
+
+input[type="text"] {
+  padding: 10px;
+  border: solid 1px #dcdcdc;
+  transition: box-shadow 0.3s, border 0.3s;
+  background-color: gray;
+  color: white;
+  font-size: 1em;
+}
+
+input[type="text"]:focus {
+  border: solid 1px #707070;
+  box-shadow: 0 0 5px 1px #969696;
 }
