@@ -2,30 +2,59 @@
 // http://web.koesbong.com/2011/01/24/sortable-and-editable-to-do-list-using-html5s-localstorage/
 
 $(function() {
-    var i = Number(localStorage.getItem('todo-counter')) + 1,
+    var i = Number(localStorage.getItem('todo-counter-left')) + 1,
         j = 0,
         k,
-        $form = $('#todo-form'),
+        $formLeft = $('#todo-form-left'),
+        $formMid = $('#todo-form-mid'),
         $removeLink = $('#shown-items-left li a'),
         $itemListLeft = $('#shown-items-left'),
+        $itemListMid = $('#shown-items-mid'),
         $editable = $('.editable'),
-        $clearAll = $('#clear-all-left'),
-        $newTodo = $('#todo'),
+        $clearAll = $('.clear-all-link'),
+        $newTodo = $('.todo'),
         order = [],
         orderList;
 
-    // Load todo list
+    // Load todo list keys
     orderList = localStorage.getItem('todo-orders');
-
     orderList = orderList ? orderList.split(',') : [];
-    for( j = 0, k = orderList.length; j < k; j++) {
+
+    // Sort todo list keys into their component lists
+    var orderListLeft = [],
+        orderListMid = [],
+        orderListRight = [];
+    for (ll = 0; ll < orderList.length; ll++) {
+        if (orderList[ll].indexOf('left') >= 0) {
+            orderListLeft.push(orderList[ll]);
+        }
+        else if (orderList[ll].indexOf('mid') >= 0) {
+            orderListMid.push(orderList[ll]);
+        }
+        else if (orderList[ll].indexOf('right') >= 0) {
+            orderListRight.push(orderList[ll]);
+        }
+    }
+
+    // Render existing todo items into the three separate lists
+    for (j = 0, k = orderListLeft.length; j < k; j++) {
         $itemListLeft.append(
-            "<li id='" + orderList[j] + "'>" + "<span class='editable'>" + localStorage.getItem(orderList[j]) + "</span> <a href='#'>X</a></li>"
+            "<li id='" + orderListLeft[j] + "'>" + "<span class='editable'>" + localStorage.getItem(orderListLeft[j]) + "</span> <a href='#'>X</a></li>"
+        );
+    }
+    for (j = 0, k = orderListMid.length; j < k; j++) {
+        $itemListMid.append(
+            "<li id='" + orderListMid[j] + "'>" + "<span class='editable'>" + localStorage.getItem(orderListMid[j]) + "</span> <a href='#'>X</a></li>"
         );
     }
 
     // Add todo
-    $form.submit(function(e) {
+    $formLeft.submit(function(e) {
+        e.preventDefault();
+        $.publish('/add/', []);
+    });
+
+    $formMid.submit(function(e) {
         e.preventDefault();
         $.publish('/add/', []);
     });
@@ -59,7 +88,8 @@ $(function() {
     // Clear all
     $clearAll.click(function(e) {
         e.preventDefault();
-        $.publish('/clear-all/', []);
+        var listToImpact = e.originalEvent.srcElement.getAttribute('data-list');
+        $.publish('/clear-all/', [listToImpact]);
     });
 
     // Fade In and Fade Out the Remove link on hover
@@ -75,29 +105,50 @@ $(function() {
 
     // Subscribes
     $.subscribe('/add/', function() {
-        if ($newTodo.val() !== "") {
+        var todoToAdd = null;
+        for (ind = 0; ind < $newTodo.length; ind++) {
+            var todoBox = $newTodo[ind];
+            if (todoBox.value !== "") {
+                todoToAdd = $newTodo[ind];
+            }
+        }
+        if (todoToAdd) {
+
+            // Figure out which list it's in
+            var listID = todoToAdd.getAttribute('data-list'),
+                listToImpact;
+
             // Take the value of the input field and save it to localStorage
             localStorage.setItem(
-                "todo-" + i, $newTodo.val()
+                "todo-" + listID + '-' + i, todoToAdd.value
             );
 
             // Set the to-do max counter so on page refresh it keeps going up instead of reset
-            localStorage.setItem('todo-counter', i);
+            localStorage.setItem('todo-counter-' + listID, i);
 
+            switch (listID) {
+                case 'left':
+                    listToImpact = $itemListLeft;
+                    break;
+                case 'mid':
+                    listToImpact = $itemListMid;
+                    break;
+                case 'right':
+                    listToImpact = $itemListRight;
+                    break;
+            }
             // Append a new list item with the value of the new todo list
-            $itemListLeft.append(
-                "<li id='todo-" + i + "'>" + "<span class='editable'>" + localStorage.getItem("todo-" + i) + " </span><a href='#'>x</a></li>"
+            listToImpact.append(
+                "<li id='todo-" + listID + '-' + i + "'>" + "<span class='editable'>" + localStorage.getItem("todo-" + listID + '-' + i) + " </span><a href='#'>x</a></li>"
             );
 
             $.publish('/regenerate-list/', []);
 
             // Hide the new list, then fade it in for effects
-            $("#todo-" + i)
-                .css('display', 'none')
-                .fadeIn();
+            $("#todo-" + listID + '-' + i).css('display', 'none').fadeIn();
 
             // Empty the input field
-            $newTodo.val("");
+            todoToAdd.value = "";
 
             i++;
         }
@@ -120,12 +171,18 @@ $(function() {
     });
 
     $.subscribe('/regenerate-list/', function() {
-        var $todoItemLi = $('#shown-items-left li');
+        var $todoItemsLeft = $('#shown-items-left li'),
+            $todoItemsMid = $('#shown-items-mid li');
         // Empty the order array
         order.length = 0;
 
         // Go through the list item, grab the ID then push into the array
-        $todoItemLi.each(function() {
+        $todoItemsLeft.each(function() {
+            var id = $(this).attr('id');
+            order.push(id);
+        });
+
+        $todoItemsMid.each(function() {
             var id = $(this).attr('id');
             order.push(id);
         });
@@ -136,11 +193,33 @@ $(function() {
         );
     });
 
-    $.subscribe('/clear-all/', function() {
-        var $todoListLi = $('#shown-items-left li');
+    $.subscribe('/clear-all/', function(listToImpactName) {
+        var $todoListLi = $('#shown-items-left li'),
+            listToImpact;
 
-        order.length = 0;
-        localStorage.clear();
-        $todoListLi.remove();
+        switch (listToImpactName) {
+            case 'left':
+                listToImpact = $('#shown-items-left li');
+                break;
+            case 'mid':
+                listToImpact = $('#shown-items-mid li');
+                break;
+            case 'right':
+                listToImpact = $('#shown-items-right li');
+                break;
+        }
+
+        orderList = localStorage.getItem('todo-orders');
+        orderList = orderList ? orderList.split(',') : [];
+        var newOrderList = [];
+        for (ind = 0; ind < orderList.length; ind++) {
+            if (orderList[ind].indexOf(listToImpactName) < 0) {
+                newOrderList.push(orderList[ind]);
+            } else {
+                localStorage.removeItem(orderList[ind]);
+            }
+        }
+        localStorage.setItem('todo-orders', newOrderList);
+        listToImpact.remove();
     });
 });
