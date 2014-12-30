@@ -2,7 +2,9 @@
 // http://web.koesbong.com/2011/01/24/sortable-and-editable-to-do-list-using-html5s-localstorage/
 
 $(function() {
-    var i = Number(localStorage.getItem('todo-counter-left')) + 1,
+    var il = Number(localStorage.getItem('todo-counter-left')) + 1,
+        im = Number(localStorage.getItem('todo-counter-mid')) + 1,
+        ir = Number(localStorage.getItem('todo-counter-right')) + 1,
         j = 0,
         k,
         $formLeft = $('#todo-form-left'),
@@ -39,22 +41,22 @@ $(function() {
     }
 
     // Render existing todo items into the three separate lists
-    for (j = 0, k = orderListLeft.length; j < k; j++) {
+    for (ind = 0; ind < orderListLeft.length; ind++) {
         $itemListLeft.append(
             // "<li id='" + orderListLeft[j] + "'>" + "<span class='editable'>" + localStorage.getItem(orderListLeft[j]) + "</span> <a href='#'>X</a></li>"
-            "<li id='" + orderListLeft[j] + "'>" + localStorage.getItem(orderListLeft[j]) + "&nbsp;&nbsp;&nbsp;<a href='#'>X</a></li>"
+            "<li id='" + orderListLeft[ind] + "'>" + localStorage.getItem(orderListLeft[ind]) + "&nbsp;&nbsp;&nbsp;<a href='#'>X</a></li>"
         );
     }
-    for (j = 0, k = orderListMid.length; j < k; j++) {
+    for (ind = 0; ind < orderListMid.length; ind++) {
         $itemListMid.append(
             // "<li id='" + orderListMid[j] + "'>" + "<span class='editable'>" + localStorage.getItem(orderListMid[j]) + "</span> <a href='#'>X</a></li>"
-            "<li id='" + orderListMid[j] + "'>" + localStorage.getItem(orderListMid[j]) + "&nbsp;&nbsp;&nbsp;<a href='#'>X</a></li>"
+            "<li id='" + orderListMid[ind] + "'>" + localStorage.getItem(orderListMid[ind]) + "&nbsp;&nbsp;&nbsp;<a href='#'>X</a></li>"
         );
     }
-    for (j = 0, k = orderListRight.length; j < k; j++) {
+    for (ind = 0; ind < orderListRight.length; ind++) {
         $itemListRight.append(
             // "<li id='" + orderListMid[j] + "'>" + "<span class='editable'>" + localStorage.getItem(orderListMid[j]) + "</span> <a href='#'>X</a></li>"
-            "<li id='" + orderListRight[j] + "'>" + localStorage.getItem(orderListRight[j]) + "&nbsp;&nbsp;&nbsp;<a href='#'>X</a></li>"
+            "<li id='" + orderListRight[ind] + "'>" + localStorage.getItem(orderListRight[ind]) + "&nbsp;&nbsp;&nbsp;<a href='#'>X</a></li>"
         );
     }
 
@@ -181,43 +183,57 @@ $(function() {
 
             // Figure out which list it's in
             var listID = todoToAdd.getAttribute('data-list'),
-                listToImpact;
-
-            // Take the value of the input field and save it to localStorage
-            localStorage.setItem(
-                "todo-" + listID + '-' + i, todoToAdd.value
-            );
-
-            // Set the to-do max counter so on page refresh it keeps going up instead of reset
-            localStorage.setItem('todo-counter-' + listID, i);
+                listToImpact,
+                listCounter;
 
             switch (listID) {
                 case 'left':
                     listToImpact = $itemListLeft;
+                    listCounter = il;
                     break;
                 case 'mid':
                     listToImpact = $itemListMid;
+                    listCounter = im;
                     break;
                 case 'right':
                     listToImpact = $itemListRight;
+                    listCounter = ir;
                     break;
             }
+
+            // Take the value of the input field and save it to localStorage
+            localStorage.setItem(
+                "todo-" + listID + '-' + listCounter, todoToAdd.value
+            );
+
+            // Set the to-do max counter so on page refresh it keeps going up instead of reset
+            localStorage.setItem('todo-counter-' + listID, listCounter);
             // Append a new list item with the value of the new todo list
             listToImpact.append(
                 // "<li id='todo-" + listID + '-' + i + "'>" + "<span class='editable'>" + localStorage.getItem("todo-" + listID + '-' + i) + " </span><a href='#'>x</a></li>"
-                "<li id='todo-" + listID + '-' + i + "'>" + localStorage.getItem("todo-" + listID + '-' + i) + "&nbsp;&nbsp;&nbsp;<a href='#'>x</a></li>"
+                "<li id='todo-" + listID + '-' + listCounter + "'>" + localStorage.getItem("todo-" + listID + '-' + listCounter) + "&nbsp;&nbsp;&nbsp;<a href='#'>x</a></li>"
             );
             $('li a:visible').fadeOut();
 
             $.publish('/regenerate-list/', []);
 
             // Hide the new list, then fade it in for effects
-            $("#todo-" + listID + '-' + i).css('display', 'none').fadeIn();
+            $("#todo-" + listID + '-' + listCounter).css('display', 'none').fadeIn();
 
             // Empty the input field
             todoToAdd.value = "";
 
-            i++;
+            switch (listID) {
+                case 'left':
+                    il++;
+                    break;
+                case 'mid':
+                    im++;
+                    break;
+                case 'right':
+                    ir++;
+                    break;
+            }
         }
     });
 
