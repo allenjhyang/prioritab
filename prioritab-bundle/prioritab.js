@@ -41,6 +41,16 @@ function CountdownMonthYear() {
     document.getElementById('countdown-year-amount').innerHTML = prettyYearPCT + "%";
 }
 
+function ScrollMessage() {
+    $('.shown-items').each(function(index) {
+        if ($(this).height() > ($(this).parent().height() - 40)) {
+            $(this).parent().parent().siblings('.scroll-message').show();
+        } else {
+            $(this).parent().parent().siblings('.scroll-message').fadeOut();
+        }
+    });
+}
+
 window.onload = function() {
     GetTime();
     GetDate();
@@ -72,4 +82,6 @@ window.onload = function() {
         $(this).children('#info').hide();
         $(this).children('#info-button').fadeIn();
     });
+
+    ScrollMessage();
 };

@@ -234,6 +234,7 @@ $(function() {
                     ir++;
                     break;
             }
+            ScrollMessage();
         }
     });
 
@@ -251,6 +252,8 @@ $(function() {
 
             $.publish('/regenerate-list/', []);
         });
+
+        ScrollMessage();
     });
 
     $.subscribe('/regenerate-list/', function() {
@@ -310,5 +313,6 @@ $(function() {
         }
         localStorage.setItem('todo-orders', newOrderList);
         listToImpact.remove();
+        ScrollMessage();
     });
 });

@@ -120,6 +120,7 @@ ul li {
     margin-left: auto;
     margin-right: auto;
     text-align: justify;
+    height: 50%;
 }
 
 #bottom-row:after {
@@ -133,6 +134,19 @@ ul li {
     margin: 0 10px 0 10px;
     display: inline-block;
     vertical-align: top;
+}
+
+.list-container {
+    /*height: 90%;*/
+    overflow: hidden;
+}
+
+.list-scrollable {
+    overflow: auto;
+    width: 101%;
+    max-height: 98%;
+    padding-right: 20px;
+
 }
 
 .shown-items {
@@ -169,7 +183,8 @@ li a {
 .edit-priorities-link {
     display: block;
     color: gray;
-    text-align: center;
+    text-align: left;
+    margin-left: 42px;
     text-decoration: none;
 }
 
@@ -189,22 +204,30 @@ form {
 }
 
 input[type="text"] {
-  padding: 10px;
-  border: solid 1px #707070;
-  transition: box-shadow 0.3s, border 0.3s;
-  background-color: gray;
-  color: white;
-  font-size: 1em;
+    width: 79%;
+    padding: 5px;
+    border: solid 1px #707070;
+    transition: box-shadow 0.3s, border 0.3s;
+    background-color: gray;
+    color: white;
+    font-size: 1em;
 }
 
 input[type="text"]:focus {
-  border: solid 1px #dcdcdc;
-  box-shadow: 0 0 5px 1px #969696;
+    border: solid 1px #dcdcdc;
+    box-shadow: 0 0 5px 1px #969696;
 }
 
 .edit-message {
     font-size: 0.8em;
     color: white;
+    margin-top: 10px;
+}
+
+.scroll-message {
+    display: none;
+    text-align: right;
+    font-size: 0.5em;
     margin-top: 10px;
 }
 
