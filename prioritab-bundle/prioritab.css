@@ -154,7 +154,7 @@ form {
 
 input[type="text"] {
   padding: 10px;
-  border: solid 1px #dcdcdc;
+  border: solid 1px #707070;
   transition: box-shadow 0.3s, border 0.3s;
   background-color: gray;
   color: white;
@@ -162,6 +162,12 @@ input[type="text"] {
 }
 
 input[type="text"]:focus {
-  border: solid 1px #707070;
+  border: solid 1px #dcdcdc;
   box-shadow: 0 0 5px 1px #969696;
+}
+
+.edit-message {
+    font-size: 0.8em;
+    color: white;
+    margin-top: 10px;
 }
