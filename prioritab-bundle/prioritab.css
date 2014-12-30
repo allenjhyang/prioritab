@@ -207,3 +207,31 @@ input[type="text"]:focus {
     color: white;
     margin-top: 10px;
 }
+
+/* INFO CORNER */
+
+#info-corner {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+
+#info-button {
+    width: 1em;
+    height: 1em;
+    text-align: center;
+    float: right;
+    display: inline-block;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+#info {
+    display: none;
+}
+
+#info-corner p {
+    font-size: 0.5em;
+    line-height: 0.6em;
+    text-align: right;
+}

@@ -64,4 +64,12 @@ window.onload = function() {
         $(this).parent().hide();
         $(this).parent().siblings('.edit-priorities-link').show();
     });
+
+    $('#info-corner').hover(function () {
+        $(this).children('#info-button').hide();
+        $(this).children('#info').fadeIn();
+    }, function() {
+        $(this).children('#info').hide();
+        $(this).children('#info-button').fadeIn();
+    });
 };
