@@ -21,6 +21,7 @@ a {
 ul li {
     font-size: 1.2em;
     line-height: 1.25em;
+    cursor: row-resize;
 }
 
 /* TOP ROW - DATETIME & COUNTDOWN */

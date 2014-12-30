@@ -31,11 +31,11 @@ function CountdownMonthYear() {
         totalMonthMS = moment().daysInMonth() * 24 * 60 * 60 * 1000,
         monthProgressPCT = progressMonthMS / totalMonthMS * 100,
         prettyMonthPCT = Math.round(monthProgressPCT),
-        yearStart = new Date(now.getFullYear(), 1, 1),
+        yearStart = new Date(now.getFullYear(), 0, 1),
         progressYearMS = now - yearStart,
         totalYearMS = 365 * 24 * 60 * 60 * 1000,
         yearProgressPCT = progressYearMS / totalYearMS * 100,
-        prettyYearPCT = Math.round(yearProgressPCT);
+        prettyYearPCT = Math.floor(yearProgressPCT);
 
     document.getElementById('countdown-month-amount').innerHTML = prettyMonthPCT + "%";
     document.getElementById('countdown-year-amount').innerHTML = prettyYearPCT + "%";
