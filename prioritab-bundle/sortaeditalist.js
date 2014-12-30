@@ -39,12 +39,14 @@ $(function() {
     // Render existing todo items into the three separate lists
     for (j = 0, k = orderListLeft.length; j < k; j++) {
         $itemListLeft.append(
-            "<li id='" + orderListLeft[j] + "'>" + "<span class='editable'>" + localStorage.getItem(orderListLeft[j]) + "</span> <a href='#'>X</a></li>"
+            // "<li id='" + orderListLeft[j] + "'>" + "<span class='editable'>" + localStorage.getItem(orderListLeft[j]) + "</span> <a href='#'>X</a></li>"
+            "<li id='" + orderListLeft[j] + "'>" + localStorage.getItem(orderListLeft[j]) + " <a href='#'>X</a></li>"
         );
     }
     for (j = 0, k = orderListMid.length; j < k; j++) {
         $itemListMid.append(
-            "<li id='" + orderListMid[j] + "'>" + "<span class='editable'>" + localStorage.getItem(orderListMid[j]) + "</span> <a href='#'>X</a></li>"
+            // "<li id='" + orderListMid[j] + "'>" + "<span class='editable'>" + localStorage.getItem(orderListMid[j]) + "</span> <a href='#'>X</a></li>"
+            "<li id='" + orderListMid[j] + "'>" + localStorage.getItem(orderListMid[j]) + " <a href='#'>X</a></li>"
         );
     }
 
@@ -139,7 +141,8 @@ $(function() {
             }
             // Append a new list item with the value of the new todo list
             listToImpact.append(
-                "<li id='todo-" + listID + '-' + i + "'>" + "<span class='editable'>" + localStorage.getItem("todo-" + listID + '-' + i) + " </span><a href='#'>x</a></li>"
+                // "<li id='todo-" + listID + '-' + i + "'>" + "<span class='editable'>" + localStorage.getItem("todo-" + listID + '-' + i) + " </span><a href='#'>x</a></li>"
+                "<li id='todo-" + listID + '-' + i + "'>" + localStorage.getItem("todo-" + listID + '-' + i) + " <a href='#'>x</a></li>"
             );
 
             $.publish('/regenerate-list/', []);
