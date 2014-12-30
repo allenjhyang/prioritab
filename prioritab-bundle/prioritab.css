@@ -1,37 +1,89 @@
+/* GENERAL */
 body {
     background-color: #333333;
     color: white;
     font-size: 20px;
     overflow: hidden;
+    min-width: 1200px;
 }
 
+.vertical-gap {
+    height: 50px;
+    display: block;
+    clear: both;
+}
+
+/* TOP ROW - DATETIME & COUNTDOWN */
 #top-row {
     width: 80%;
-    height: 25%;
+    /*height: 30%;*/
     margin-left: auto;
     margin-right: auto;
-    color: gray;
-    line-height: 3em;
+    margin-top: 100px;
+    /*color: white;*/
+    /*line-height: 3em;*/
+}
+
+#nowbox {
+    font-size: 2.5em;
+    float: left;
+    /*line-height: 3em;*/
+    /*width: 25%;*/
+    /*line-height: 2.6em;*/
 }
 
 #clockbox {
-    font-size: 2.5em;
-    float: left;
-    line-height: 3em;
+    /*height: 33%;*/
+    text-align: center;
+    border: 1px solid;
+    vertical-align: middle;
+    padding: 10px 20px 10px 20px;
+    font-size: 1.2em;
+    /*font-weight: bold;*/
+    line-height: 1.5em;
 }
 
-#weatherbox {
-    float: left;
-    margin-left: 50px;
-    color: white;
-    font-size: 2.5em;
-    /*line-height: 3em; Why does removing this center things vertically correctly? */
+#daybox {
+    /*height: 33%;*/
+    text-align: center;
+    font-size: 0.75em;
+    margin-top: 20px;
 }
+
+#datebox {
+    /*height: 33%;*/
+    text-align: center;
+    font-size: 0.75em;
+}
+
+#countdownbox {
+    font-size: 1.5em;
+    float: right;
+    /*width: 70%;*/
+    margin-left: 60px;
+}
+
+.countdown-title {
+    text-align: center;
+    clear: both;
+}
+
+.countdown-segment {
+    float: left;
+    text-align: center;
+    width: 325px;
+}
+
+.countdown-amount {
+    font-size: 2.75em;
+}
+
+/* BOTTOM ROW - PRIORITIES */
 
 #bottom-row {
     clear: both;
     width: 80%;
-    height: 75%;
+    /*height: 65%;*/
     margin-left: auto;
     margin-right: auto;
 }

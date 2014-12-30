@@ -1,40 +1,51 @@
-function GetClock(){
-    var d = new Date();
-    var nhour = d.getHours(),
-        nmin = d.getMinutes(),
-        nsec = d.getSeconds(),
-        ap;
+// Other Prioritab scripts
 
-    if (nhour === 0) {
-        ap = " AM";
-        nhour = 12;
-    }
-    else if (nhour < 12){
-        ap = " AM";
-    }
-    else if (nhour == 12){
-        ap = " PM";
-    }
-    else if (nhour > 12){
-        ap = " PM";
-        nhour -= 12;
-    }
+function GetTime() {
+    var prettyTime = moment().format("h:mm:ss A");
+    document.getElementById('clockbox').innerHTML = prettyTime;
+}
 
-    if (nmin <= 9) {
-        nmin = "0" + nmin;
-    }
-    if (nsec <= 9) {
-        nsec = "0" + nsec;
-    }
+function GetDate() {
+    var dayOfWeek = moment().format('dddd'),
+        prettyDate = moment().format("MMM D, YYYY");
 
-    document.getElementById('clockbox').innerHTML = "" + nhour + ":" + nmin + ":" + nsec + ap + "";
+    document.getElementById('daybox').innerHTML = dayOfWeek;
+    document.getElementById('datebox').innerHTML = prettyDate;
+}
+
+function CountdownDay() {
+    var now = new Date(),
+        todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()),
+        progressMS = now - todayStart,
+        totalDayMS = 24 * 60 * 60 * 1000,
+        progressPCT = progressMS / totalDayMS * 100,
+        prettyPCT = Math.round(progressPCT);
+
+    document.getElementById('countdown-day-amount').innerHTML = prettyPCT + "%";
+}
+
+function CountdownMonthYear() {
+    var now = new Date(),
+        monthStart = new Date(now.getFullYear(), now.getMonth(), 1),
+        progressMonthMS = now - monthStart,
+        totalMonthMS = moment().daysInMonth() * 24 * 60 * 60 * 1000,
+        monthProgressPCT = progressMonthMS / totalMonthMS * 100,
+        prettyMonthPCT = Math.round(monthProgressPCT),
+        yearStart = new Date(now.getFullYear(), 1, 1),
+        progressYearMS = now - yearStart,
+        totalYearMS = 365 * 24 * 60 * 60 * 1000,
+        yearProgressPCT = progressYearMS / totalYearMS * 100,
+        prettyYearPCT = Math.round(yearProgressPCT);
+
+    document.getElementById('countdown-month-amount').innerHTML = prettyMonthPCT + "%";
+    document.getElementById('countdown-year-amount').innerHTML = prettyYearPCT + "%";
 }
 
 window.onload = function() {
-    GetClock();
-    setInterval(GetClock, 1000);
-    chrome.storage.sync.set({'testValue': 'This is Allen'});
-    chrome.storage.sync.get('testValue', function(retrieved) {
-        document.getElementById('testItem').innerHTML = retrieved.testValue;
-    });
+    GetTime();
+    GetDate();
+    CountdownDay();
+    CountdownMonthYear();
+    setInterval(GetTime, 1000);
+    setInterval(CountdownDay, 900000);
 };
