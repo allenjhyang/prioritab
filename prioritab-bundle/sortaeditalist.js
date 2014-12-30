@@ -49,7 +49,6 @@ $(function() {
             "<li id='" + orderListMid[j] + "'>" + localStorage.getItem(orderListMid[j]) + " <a href='#'>X</a></li>"
         );
     }
-
     // Add todo
     $formLeft.submit(function(e) {
         e.preventDefault();
@@ -69,6 +68,13 @@ $(function() {
         $.publish('/remove/', [$this]);
     });
 
+    $itemListMid.delegate('a', 'click', function(e) {
+        var $this = $(this);
+
+        e.preventDefault();
+        $.publish('/remove/', [$this]);
+    });
+
     // Sort todo
     $itemListLeft.sortable({
         revert: true,
@@ -77,15 +83,22 @@ $(function() {
         }
     });
 
-    // Edit and save todo
-    $editable.inlineEdit({
-        save: function(e, data) {
-                var $this = $(this);
-                localStorage.setItem(
-                    $this.parent().attr("id"), data.value
-                );
-            }
+    $itemListMid.sortable({
+        revert: true,
+        stop: function() {
+            $.publish('/regenerate-list/', []);
+        }
     });
+
+    // Edit and save todo
+    // $editable.inlineEdit({
+    //     save: function(e, data) {
+    //             var $this = $(this);
+    //             localStorage.setItem(
+    //                 $this.parent().attr("id"), data.value
+    //             );
+    //         }
+    // });
 
     // Clear all
     $clearAll.click(function(e) {
@@ -96,6 +109,16 @@ $(function() {
 
     // Fade In and Fade Out the Remove link on hover
     $itemListLeft.delegate('li', 'mouseover mouseout', function(event) {
+        var $this = $(this).find('a');
+
+        if(event.type === 'mouseover') {
+            $this.stop(true, true).fadeIn();
+        } else {
+            $this.stop(true, true).fadeOut();
+        }
+    });
+
+    $itemListMid.delegate('li', 'mouseover mouseout', function(event) {
         var $this = $(this).find('a');
 
         if(event.type === 'mouseover') {
