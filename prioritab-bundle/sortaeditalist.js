@@ -2,9 +2,11 @@
 // http://web.koesbong.com/2011/01/24/sortable-and-editable-to-do-list-using-html5s-localstorage/
 
 $(function() {
-    var il = Number(localStorage.getItem('todo-counter-left')) + 1,
-        im = Number(localStorage.getItem('todo-counter-mid')) + 1,
-        ir = Number(localStorage.getItem('todo-counter-right')) + 1,
+    // var il = Number(localStorage.getItem('todo-counter-left')) + 1,
+    //     im = Number(localStorage.getItem('todo-counter-mid')) + 1,
+    //     ir = Number(localStorage.getItem('todo-counter-right')) + 1,
+    var il, im, ir,
+        listCounters = ['todo-counter-left', 'todo-counter-mid', 'todo-counter-right'],
         j = 0,
         k,
         $formLeft = $('#todo-form-left'),
@@ -20,47 +22,55 @@ $(function() {
         order = [],
         orderList;
 
+    chrome.storage.sync.get(listCounters, function(result) {
+        il = (result['todo-counter-left']) ? result['todo-counter-left'] + 1 : 1;
+        im = (result['todo-counter-mid']) ? result['todo-counter-mid'] + 1 : 1;
+        ir = (result['todo-counter-right']) ? result['todo-counter-right'] + 1 : 1;
+    });
+
     // Load todo list keys
-    orderList = localStorage.getItem('todo-orders');
-    orderList = orderList ? orderList.split(',') : [];
+    chrome.storage.sync.get('todo-orders', function(retrieved) {
+        orderList = retrieved['todo-orders'];
+        orderList = orderList ? orderList.split(',') : [];
 
-    // Sort todo list keys into their component lists
-    var orderListLeft = [],
-        orderListMid = [],
-        orderListRight = [];
-    for (ll = 0; ll < orderList.length; ll++) {
-        if (orderList[ll].indexOf('left') >= 0) {
-            orderListLeft.push(orderList[ll]);
+        // Sort todo list keys into their component lists
+        var orderListLeft = [],
+            orderListMid = [],
+            orderListRight = [];
+        for (ll = 0; ll < orderList.length; ll++) {
+            if (orderList[ll].indexOf('left') >= 0) {
+                orderListLeft.push(orderList[ll]);
+            }
+            else if (orderList[ll].indexOf('mid') >= 0) {
+                orderListMid.push(orderList[ll]);
+            }
+            else if (orderList[ll].indexOf('right') >= 0) {
+                orderListRight.push(orderList[ll]);
+            }
         }
-        else if (orderList[ll].indexOf('mid') >= 0) {
-            orderListMid.push(orderList[ll]);
-        }
-        else if (orderList[ll].indexOf('right') >= 0) {
-            orderListRight.push(orderList[ll]);
-        }
-    }
 
-    // Render existing todo items into the three separate lists
-    for (ind = 0; ind < orderListLeft.length; ind++) {
-        $itemListLeft.append(
-            // "<li id='" + orderListLeft[j] + "'>" + "<span class='editable'>" + localStorage.getItem(orderListLeft[j]) + "</span> <a href='#'>X</a></li>"
-            "<li id='" + orderListLeft[ind] + "'>" + localStorage.getItem(orderListLeft[ind]) + "&nbsp;&nbsp;&nbsp;<a href='#'>X</a></li>"
-        );
-    }
-    for (ind = 0; ind < orderListMid.length; ind++) {
-        $itemListMid.append(
-            // "<li id='" + orderListMid[j] + "'>" + "<span class='editable'>" + localStorage.getItem(orderListMid[j]) + "</span> <a href='#'>X</a></li>"
-            "<li id='" + orderListMid[ind] + "'>" + localStorage.getItem(orderListMid[ind]) + "&nbsp;&nbsp;&nbsp;<a href='#'>X</a></li>"
-        );
-    }
-    for (ind = 0; ind < orderListRight.length; ind++) {
-        $itemListRight.append(
-            // "<li id='" + orderListMid[j] + "'>" + "<span class='editable'>" + localStorage.getItem(orderListMid[j]) + "</span> <a href='#'>X</a></li>"
-            "<li id='" + orderListRight[ind] + "'>" + localStorage.getItem(orderListRight[ind]) + "&nbsp;&nbsp;&nbsp;<a href='#'>X</a></li>"
-        );
-    }
+        // Render existing todo items into the three separate lists
+        chrome.storage.sync.get(orderListLeft, function(result) {
+            orderListLeft.forEach(function(key){
+                $('#shown-items-left').append("<li id='" + key + "'>" + result[key] + "&nbsp;&nbsp;&nbsp;<a href='#'>X</a></li>");
+            });
+            $('li a').fadeOut();
+        });
 
-    $('li a').fadeOut();
+        chrome.storage.sync.get(orderListMid, function(result) {
+            orderListMid.forEach(function(key){
+                $('#shown-items-mid').append("<li id='" + key + "'>" + result[key] + "&nbsp;&nbsp;&nbsp;<a href='#'>X</a></li>");
+            });
+            $('li a').fadeOut();
+        });
+
+        chrome.storage.sync.get(orderListRight, function(result) {
+            orderListRight.forEach(function(key){
+                $('#shown-items-right').append("<li id='" + key + "'>" + result[key] + "&nbsp;&nbsp;&nbsp;<a href='#'>X</a></li>");
+            });
+            $('li a').fadeOut();
+        });
+    });
 
     // Add todo
     $formLeft.submit(function(e) {
@@ -202,20 +212,25 @@ $(function() {
             }
 
             // Take the value of the input field and save it to localStorage
-            localStorage.setItem(
-                "todo-" + listID + '-' + listCounter, todoToAdd.value
-            );
+            var newTodoID = "todo-" + listID + '-' + listCounter;
+
+            var objToSave = {};
+            objToSave[newTodoID] = todoToAdd.value;
+            chrome.storage.sync.set(objToSave);
 
             // Set the to-do max counter so on page refresh it keeps going up instead of reset
-            localStorage.setItem('todo-counter-' + listID, listCounter);
-            // Append a new list item with the value of the new todo list
-            listToImpact.append(
-                // "<li id='todo-" + listID + '-' + i + "'>" + "<span class='editable'>" + localStorage.getItem("todo-" + listID + '-' + i) + " </span><a href='#'>x</a></li>"
-                "<li id='todo-" + listID + '-' + listCounter + "'>" + localStorage.getItem("todo-" + listID + '-' + listCounter) + "&nbsp;&nbsp;&nbsp;<a href='#'>x</a></li>"
-            );
-            $('li a:visible').fadeOut();
+            var counterToSave = {},
+                counterKey = "todo-counter-" + listID;
+            counterToSave[counterKey] = listCounter;
+            chrome.storage.sync.set(counterToSave);
 
-            $.publish('/regenerate-list/', []);
+            // Append a new list item with the value of the new todo list
+            chrome.storage.sync.get(newTodoID, function(result) {
+                listToImpact.append("<li id='" + newTodoID + "'>" + result[newTodoID] + "&nbsp;&nbsp;&nbsp;<a href='#'>X</a></li>");
+                $('li a:visible').fadeOut();
+
+                $.publish('/regenerate-list/', []);
+            });
 
             // Hide the new list, then fade it in for effects
             $("#todo-" + listID + '-' + listCounter).css('display', 'none').fadeIn();
@@ -226,12 +241,15 @@ $(function() {
             switch (listID) {
                 case 'left':
                     il++;
+                    chrome.storage.sync.set({'todo-counter-left': il});
                     break;
                 case 'mid':
                     im++;
+                    chrome.storage.sync.set({'todo-counter-mid': im});
                     break;
                 case 'right':
                     ir++;
+                    chrome.storage.sync.set({'todo-counter-right': ir});
                     break;
             }
             ScrollMessage();
@@ -242,9 +260,7 @@ $(function() {
         var parentId = $this.parent().attr('id');
 
         // Remove todo list from localStorage based on the id of the clicked parent element
-        localStorage.removeItem(
-            "'" + parentId + "'"
-        );
+        chrome.storage.sync.remove(parentId);
 
         // Fade out the list item then remove from DOM
         $this.parent().fadeOut(function() {
@@ -260,6 +276,7 @@ $(function() {
         var $todoItemsLeft = $('#shown-items-left li'),
             $todoItemsMid = $('#shown-items-mid li');
             $todoItemsRight = $('#shown-items-right li');
+
         // Empty the order array
         order.length = 0;
 
@@ -280,9 +297,7 @@ $(function() {
         });
 
         // Convert the array into string and save to localStorage
-        localStorage.setItem(
-            'todo-orders', order.join(',')
-        );
+        chrome.storage.sync.set({'todo-orders': order.join(',')});
     });
 
     $.subscribe('/clear-all/', function(listToImpactName) {
@@ -301,18 +316,20 @@ $(function() {
                 break;
         }
 
-        orderList = localStorage.getItem('todo-orders');
-        orderList = orderList ? orderList.split(',') : [];
-        var newOrderList = [];
-        for (ind = 0; ind < orderList.length; ind++) {
-            if (orderList[ind].indexOf(listToImpactName) < 0) {
-                newOrderList.push(orderList[ind]);
-            } else {
-                localStorage.removeItem(orderList[ind]);
+        chrome.storage.sync.get('todo-orders', function(retrieved){
+            var orderList = retrieved['todo-orders'] ? retrieved['todo-orders'].split(',') : [];
+            var newOrderList = [];
+            for (ind = 0; ind < orderList.length; ind++) {
+                if (orderList[ind].indexOf(listToImpactName) < 0) {
+                    newOrderList.push(orderList[ind]);
+                } else {
+                    chrome.storage.sync.remove(orderList[ind]);
+                }
             }
-        }
-        localStorage.setItem('todo-orders', newOrderList);
-        listToImpact.remove();
-        ScrollMessage();
+            chrome.storage.sync.set({'todo-orders': newOrderList.join(',')});
+            listToImpact.remove();
+            ScrollMessage();
+        });
+
     });
 });
