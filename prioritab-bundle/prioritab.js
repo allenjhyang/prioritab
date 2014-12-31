@@ -59,7 +59,7 @@ window.onload = function() {
     setInterval(GetTime, 1000);
     setInterval(CountdownDay, 900000);
 
-    $('.edit-priorities-link').click(function (e) {
+    $('.edit-priorities-link').click(function(e) {
         $('.edit-priorities').each(function(index) {
             $(this).hide();
             $(this).siblings('.edit-priorities-link').fadeIn();
@@ -70,12 +70,12 @@ window.onload = function() {
         $(prioritiesList).find('input.todo').focus();
     });
 
-    $('.hide-edit').click(function (e) {
+    $('.hide-edit').click(function(e) {
         $(this).parent().hide();
         $(this).parent().siblings('.edit-priorities-link').show();
     });
 
-    $('#info-corner').hover(function () {
+    $('#info-corner').hover(function() {
         $(this).children('#info-button').hide();
         $(this).children('#info').fadeIn();
     }, function() {
