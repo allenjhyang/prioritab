@@ -43,7 +43,7 @@ function CountdownMonthYear() {
 
 function ScrollMessage() {
     $('.shown-items').each(function(index) {
-        if ($(this).height() > ($(this).parent().height() - 40)) {
+        if ($(this).height() > 1 && $(this).height() > ($(this).parent().height() - 40)) {
             $(this).parent().parent().siblings('.scroll-message').show();
         } else {
             $(this).parent().parent().siblings('.scroll-message').fadeOut();

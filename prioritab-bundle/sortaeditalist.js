@@ -69,7 +69,9 @@ $(function() {
                 $('#shown-items-right').append("<li id='" + key + "'>" + result[key] + "&nbsp;&nbsp;&nbsp;<a href='#'>X</a></li>");
             });
             $('li a').fadeOut();
+            ScrollMessage();
         });
+
     });
 
     // Add todo
