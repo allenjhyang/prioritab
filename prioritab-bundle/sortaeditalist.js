@@ -72,6 +72,10 @@ $(function() {
             ScrollMessage();
         });
 
+        chrome.storage.sync.get('user-shadow-color', function(result) {
+            $('.shadow-color').css('color', (result['user-shadow-color']) ? result['user-shadow-color'] : 'grey');
+        });
+
     });
 
     // Add todo
@@ -229,6 +233,9 @@ $(function() {
             // Append a new list item with the value of the new todo list
             chrome.storage.sync.get(newTodoID, function(result) {
                 listToImpact.append("<li id='" + newTodoID + "'>" + result[newTodoID] + "&nbsp;&nbsp;&nbsp;<a href='#' class='shadow-color'>X</a></li>");
+                chrome.storage.sync.get('user-shadow-color', function(result) {
+                    $('.shadow-color').css('color', (result['user-shadow-color']) ? result['user-shadow-color'] : 'grey');
+                });
                 $('li a:visible').fadeOut();
 
                 $.publish('/regenerate-list/', []);

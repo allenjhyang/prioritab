@@ -43,7 +43,7 @@ function CountdownMonthYear() {
 
 function ScrollMessage() {
     $('.shown-items').each(function(index) {
-        if ($(this).height() > 1 && $(this).height() > ($(this).parent().height() - 40)) {
+        if ($(this).height() > 1 && $(this).height() > ($(this).parent().height() - 50)) {
             $(this).parent().parent().siblings('.scroll-message').show();
         } else {
             $(this).parent().parent().siblings('.scroll-message').fadeOut();
@@ -69,7 +69,7 @@ window.onload = function() {
 
     chrome.storage.sync.get('user-shadow-color', function(result) {
         $('.shadow-color').css('color', (result['user-shadow-color']) ? result['user-shadow-color'] : 'grey');
-    });
+    }); // This code also occurs in sortaeditalist.js, when initializing the to-dos and when adding new to-dos
 
     $('.edit-priorities-link').click(function(e) {
         $('.edit-priorities').each(function(index) {
@@ -109,6 +109,7 @@ window.onload = function() {
         layout: 'full',
         submit: false,
         colorScheme: 'dark',
+        color: '#333333',
         onChange: function(hsb,hex,rgb,el,bySetColor) {
             $('body').css('background-color', '#' + hex);
             chrome.storage.sync.set({'user-background-color': '#' + hex});
@@ -123,6 +124,7 @@ window.onload = function() {
         layout: 'full',
         submit: false,
         colorScheme: 'dark',
+        color: '#FFFFFF',
         onChange: function(hsb,hex,rgb,el,bySetColor) {
             $('body').css('color', '#' + hex);
             chrome.storage.sync.set({'user-font-color': '#' + hex});
@@ -137,6 +139,7 @@ window.onload = function() {
         layout: 'full',
         submit: false,
         colorScheme: 'dark',
+        color: '#808080',
         onChange: function(hsb,hex,rgb,el,bySetColor) {
             $('.shadow-color').css('color', '#' + hex);
             chrome.storage.sync.set({'user-shadow-color': '#' + hex});

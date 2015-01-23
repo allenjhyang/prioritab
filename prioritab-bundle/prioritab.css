@@ -217,7 +217,6 @@ input[type="text"]:focus {
 
 .edit-message {
     font-size: 0.8em;
-    color: white;
     margin-top: 10px;
 }
 
@@ -252,7 +251,7 @@ input[type="text"]:focus {
 }
 
 #color-selectors {
-    font-size: 0.75em;
+    font-size: 0.6em;
     display: none;
 }
 
