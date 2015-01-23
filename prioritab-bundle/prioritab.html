@@ -11,6 +11,10 @@
     <script src="lib/jquery.inlineedit.js"></script>
     <script src="lib/pubsub.js"></script>
     <script src="sortaeditalist.js"></script>
+    <script src="lib/spectrum.js"></script>
+
+    <script src="lib/colpick.js"></script>
+    <link rel='stylesheet' href='lib/colpick.css' />
 </head>
 
 <body>
@@ -62,7 +66,7 @@
             <div id="list-left" class="list-container">
                 <div class="list-scrollable">
                     <ul id="shown-items-left" class="shown-items"></ul>
-                    <a class="edit-priorities-link" href="#">Edit</a>
+                    <a class="edit-priorities-link shadow-color" href="#">Edit</a>
                     <div class="edit-priorities">
                         <form id="todo-form-left" data-list="left">
                             <input class="todo" type="text" data-list="left" />
@@ -86,7 +90,7 @@
             <div id="list-mid" class="list-container">
                 <div class="list-scrollable">
                     <ul id="shown-items-mid" class="shown-items"></ul>
-                    <a class="edit-priorities-link" href="#">Edit</a>
+                    <a class="edit-priorities-link shadow-color" href="#">Edit</a>
                     <div class="edit-priorities">
                         <form id="todo-form-mid" data-list="mid">
                             <input class="todo" type="text" data-list="mid" />
@@ -110,7 +114,7 @@
             <div id="list-right" class="list-container">
                 <div class="list-scrollable">
                     <ul id="shown-items-right" class="shown-items"></ul>
-                    <a class="edit-priorities-link" href="#">Edit</a>
+                    <a class="edit-priorities-link shadow-color" href="#">Edit</a>
                     <div class="edit-priorities">
                         <form id="todo-form-right" data-list="right">
                             <input class="todo" type="text" data-list="right" />
@@ -128,13 +132,30 @@
 
     </div>
 
+    <div id="color-corner">
+        <img id="color-button" src="gear_icon.png" />
+        <div id="color-selectors">
+            <p id="color-corner-title"><em>Customize colors</em></p>
+            <span id="background-color-selector" class="color-selector-label">Background ></span><span id="background-colpick"></span>
+            <br />
+            <span id="font-color-selector" class="color-selector-label">Font ></span>
+            <br />
+            <span id="shadow-color-selector" class="color-selector-label">Secondary Font ></span>
+            <br />
+            <br />
+            <span id="restore-default-colors">Restore defaults ></span>
+            <p id="hide-color-selectors">(Hide)</p>
+        </div>
+    </div>
+
     <div id="info-corner">
         <img id="info-button" src="info_icon.png" />
         <div id="info">
-            <p>From <a href="http://www.bitsandbites.me/?utm_source=prioritab">bitsandbites.me</a>.</p>
-            <p>Much thanks for support from the <a href="https://github.com/thelac">Leather Apron Club</a>,</p>
-            <p><a href="http://web.koesbong.com/2011/01/24/sortable-and-editable-to-do-list-using-html5s-localstorage/">Koes Bong</a> for the backbones of the sortable, editable lists,</p>
-            <p>and <a href="https://chrome.google.com/webstore/detail/currently/ojhmphdkpgbibohbnpbfiefkgieacjmh?hl=en">Currently</a> for design inspiration.</p>
+            <p>From <a href="http://www.bitsandbites.me/?utm_source=prioritab" class="shadow-color">bitsandbites.me</a>.</p>
+            <p>Much thanks for support from the <a href="https://github.com/thelac" class="shadow-color">Leather Apron Club</a>,</p>
+            <p><a href="http://web.koesbong.com/2011/01/24/sortable-and-editable-to-do-list-using-html5s-localstorage/" class="shadow-color">Koes Bong</a> for the backbones of the sortable, editable lists,</p>
+            <p>the <a href="http://colpick.com/plugin" class="shadow-color">Colpick</a> color picker,</p>
+            <p>and <a href="https://chrome.google.com/webstore/detail/currently/ojhmphdkpgbibohbnpbfiefkgieacjmh?hl=en" class="shadow-color">Currently</a> for design inspiration.</p>
         </div>
     </div>
 </body>

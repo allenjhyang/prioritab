@@ -59,6 +59,18 @@ window.onload = function() {
     setInterval(GetTime, 1000);
     setInterval(CountdownDay, 900000);
 
+    chrome.storage.sync.get('user-background-color', function(result) {
+        $('body').css('background-color', (result['user-background-color']) ? result['user-background-color'] : '#333333');
+    });
+
+    chrome.storage.sync.get('user-font-color', function(result) {
+        $('body').css('color', (result['user-font-color']) ? result['user-font-color'] : 'white');
+    });
+
+    chrome.storage.sync.get('user-shadow-color', function(result) {
+        $('.shadow-color').css('color', (result['user-shadow-color']) ? result['user-shadow-color'] : 'grey');
+    });
+
     $('.edit-priorities-link').click(function(e) {
         $('.edit-priorities').each(function(index) {
             $(this).hide();
@@ -81,6 +93,73 @@ window.onload = function() {
     }, function() {
         $(this).children('#info').hide();
         $(this).children('#info-button').fadeIn();
+    });
+
+    $('#color-button').click(function() {
+        $('#color-button').hide();
+        $('#color-selectors').fadeIn();
+    });
+
+    $('#hide-color-selectors').click(function() {
+        $('#color-selectors').hide();
+        $('#color-button').fadeIn();
+    });
+
+    $('#background-color-selector').colpick({
+        layout: 'full',
+        submit: false,
+        colorScheme: 'dark',
+        onChange: function(hsb,hex,rgb,el,bySetColor) {
+            $('body').css('background-color', '#' + hex);
+            chrome.storage.sync.set({'user-background-color': '#' + hex});
+        },
+        onHide: function(cpobj) {
+            $('.color-selector-label').css('visibility', 'visible');
+            $('.color-selector-label').css('font-weight', 'normal');
+        }
+    });
+
+    $('#font-color-selector').colpick({
+        layout: 'full',
+        submit: false,
+        colorScheme: 'dark',
+        onChange: function(hsb,hex,rgb,el,bySetColor) {
+            $('body').css('color', '#' + hex);
+            chrome.storage.sync.set({'user-font-color': '#' + hex});
+        },
+        onHide: function(cpobj) {
+            $('.color-selector-label').css('visibility', 'visible');
+            $('.color-selector-label').css('font-weight', 'normal');
+        }
+    });
+
+    $('#shadow-color-selector').colpick({
+        layout: 'full',
+        submit: false,
+        colorScheme: 'dark',
+        onChange: function(hsb,hex,rgb,el,bySetColor) {
+            $('.shadow-color').css('color', '#' + hex);
+            chrome.storage.sync.set({'user-shadow-color': '#' + hex});
+        },
+        onHide: function(cpobj) {
+            $('.color-selector-label').css('visibility', 'visible');
+            $('.color-selector-label').css('font-weight', 'normal');
+        }
+    });
+
+    $('.color-selector-label').click(function(e) {
+        $(this).siblings('.color-selector-label').css('visibility', 'hidden');
+        $(this).show();
+        $(this).css('font-weight', 'bold');
+    });
+
+    $('#restore-default-colors').click(function(e) {
+        $('body').css('background-color', '#333333');
+        chrome.storage.sync.set({'user-background-color': '#333333'});
+        $('body').css('color', 'white');
+        chrome.storage.sync.set({'user-font-color': 'white'});
+        $('.shadow-color').css('color', 'gray');
+        chrome.storage.sync.set({'user-shadow-color': 'gray'});
     });
 
     ScrollMessage();
