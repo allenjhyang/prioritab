@@ -28,10 +28,54 @@ $(function() {
         ir = (result['todo-counter-right']) ? result['todo-counter-right'] + 1 : 1;
     });
 
+    var onetimeMigration = function (orderList) {
+        orderList = orderList ? orderList.split(',') : [];
+
+        var orderListLeft = [],
+            orderListMid = [],
+            orderListRight = [];
+        for (ll = 0; ll < orderList.length; ll++) {
+            if (orderList[ll].indexOf('left') >= 0) {
+                orderListLeft.push(orderList[ll]);
+            }
+            else if (orderList[ll].indexOf('mid') >= 0) {
+                orderListMid.push(orderList[ll]);
+            }
+            else if (orderList[ll].indexOf('right') >= 0) {
+                orderListRight.push(orderList[ll]);
+            }
+        }
+        console.log('onetimeMigration ran');
+        // debugger;
+        chrome.storage.sync.set({'todo-orders-left': orderListLeft.join(',')});
+        chrome.storage.sync.set({'todo-orders-mid': orderListMid.join(',')});
+        chrome.storage.sync.set({'todo-orders-right': orderListRight.join(',')});
+
+    };
+
     // Load todo list keys
-    chrome.storage.sync.get('todo-orders', function(retrieved) {
+    chrome.storage.sync.get(['todo-orders', 'todo-orders-left', 'todo-orders-mid', 'todo-orders-right'], function(retrieved) {
         orderList = retrieved['todo-orders'];
         orderList = orderList ? orderList.split(',') : [];
+
+        // orderListLeft = retrieved['todo-orders-left'];
+
+        // // A one-time migration from the old storage system (todo-orders) to the new (todo-orders-left, etc.)
+        // if (orderList.length && typeof(orderListLeft) === "undefined") {
+        //     onetimeMigration(orderList);
+        //     chrome.storage.sync.get(['todo-orders', 'todo-orders-left', 'todo-orders-mid', 'todo-orders-right'], function(retrievedNew) {
+        //         retrieved = retrievedNew;
+        //     });
+        //     orderListLeft = retrieved['todo-orders-left'];
+        // }
+
+        // orderListLeft = orderListLeft ? orderListLeft.split(',') : [];
+
+        // orderListMid = retrieved['todo-orders-mid'];
+        // orderListMid = orderListMid ? orderListMid.split(',') : [];
+
+        // orderListRight = retrieved['todo-orders-right'];
+        // orderListRight = orderListRight ? orderListRight.split(',') : [];
 
         // Sort todo list keys into their component lists
         var orderListLeft = [],
@@ -119,6 +163,7 @@ $(function() {
     // Sort todo
     $itemListLeft.sortable({
         revert: true,
+        connectWith: ['#shown-items-mid, #shown-items-right'],
         stop: function() {
             $.publish('/regenerate-list/', []);
         }
@@ -126,6 +171,7 @@ $(function() {
 
     $itemListMid.sortable({
         revert: true,
+        connectWith: ['#shown-items-left, #shown-items-right'],
         stop: function() {
             $.publish('/regenerate-list/', []);
         }
@@ -133,6 +179,7 @@ $(function() {
 
     $itemListRight.sortable({
         revert: true,
+        connectWith: ['#shown-items-left, #shown-items-mid'],
         stop: function() {
             $.publish('/regenerate-list/', []);
         }
@@ -281,32 +328,54 @@ $(function() {
         ScrollMessage();
     });
 
+    var reassignToLeft = function (items) {
+        items.each(function() {
+            if (this.id.indexOf('left') < 0) {
+                var todoIndex = this.id.slice(this.id.lastIndexOf('-') + 1);
+                this.id = "todo-left-" + todoIndex;
+            }
+        });
+    };
+
     $.subscribe('/regenerate-list/', function() {
         var $todoItemsLeft = $('#shown-items-left li'),
             $todoItemsMid = $('#shown-items-mid li');
             $todoItemsRight = $('#shown-items-right li');
 
+        // Make sure all items in the respective lists have the right 'tag'
+        // (in event of cross-list movement)
+        // reassignToLeft($todoItemsLeft);
+
         // Empty the order array
         order.length = 0;
+        // orderLeft.length = 0;
+        // orderMid.length = 0;
+        // orderRight.length = 0;
 
         // Go through the list item, grab the ID then push into the array
         $todoItemsLeft.each(function() {
             var id = $(this).attr('id');
             order.push(id);
+            // orderLeft.push(id);
         });
 
         $todoItemsMid.each(function() {
             var id = $(this).attr('id');
             order.push(id);
+            // orderMid.push(id);
         });
 
         $todoItemsRight.each(function() {
             var id = $(this).attr('id');
             order.push(id);
+            // orderRight.push(id);
         });
 
         // Convert the array into string and save to localStorage
         chrome.storage.sync.set({'todo-orders': order.join(',')});
+        // chrome.storage.sync.set({'todo-orders-left': orderLeft.join(',')});
+        // chrome.storage.sync.set({'todo-orders-mid': orderMid.join(',')});
+        // chrome.storage.sync.set({'todo-orders-right': orderRight.join(',')});
     });
 
     $.subscribe('/clear-all/', function(listToImpactName) {
