@@ -119,6 +119,7 @@ $(function() {
     // Sort todo
     $itemListLeft.sortable({
         revert: true,
+        connectWith: ['#shown-items-mid, #shown-items-right'],
         stop: function() {
             $.publish('/regenerate-list/', []);
         }
@@ -126,6 +127,7 @@ $(function() {
 
     $itemListMid.sortable({
         revert: true,
+        connectWith: ['#shown-items-left, #shown-items-right'],
         stop: function() {
             $.publish('/regenerate-list/', []);
         }
@@ -133,6 +135,7 @@ $(function() {
 
     $itemListRight.sortable({
         revert: true,
+        connectWith: ['#shown-items-left, #shown-items-mid'],
         stop: function() {
             $.publish('/regenerate-list/', []);
         }
@@ -281,10 +284,67 @@ $(function() {
         ScrollMessage();
     });
 
+    var reassignToList = function (inputDict) {
+        var target = inputDict['target'],
+            items = inputDict['items'];
+
+        switch (target) {
+            case 'left':
+                listCounter = il;
+                break;
+            case 'mid':
+                listCounter = im;
+                break;
+            case 'right':
+                listCounter = ir;
+                break;
+        }
+
+        items.each(function() {
+            if (this.id.indexOf(target) < 0) {
+                // Reassign ID
+                var oldID = this.id,
+                    oldValue;
+                newID = "todo-" + target + "-" + listCounter;
+                this.id = newID;
+
+                switch (target) {
+                    case 'left':
+                        il++;
+                        chrome.storage.sync.set({'todo-counter-left': il});
+                        break;
+                    case 'mid':
+                        im++;
+                        chrome.storage.sync.set({'todo-counter-mid': im});
+                        break;
+                    case 'right':
+                        ir++;
+                        chrome.storage.sync.set({'todo-counter-right': ir});
+                        break;
+                }
+
+                // Store todo item under new key
+                chrome.storage.sync.get(oldID, function(retrieved) {
+                    oldValue = retrieved[oldID];
+                    var objToSave = {};
+                    objToSave[newID] = oldValue;
+                    chrome.storage.sync.set(objToSave);
+                });
+            }
+        });
+    };
+
     $.subscribe('/regenerate-list/', function() {
         var $todoItemsLeft = $('#shown-items-left li'),
             $todoItemsMid = $('#shown-items-mid li');
             $todoItemsRight = $('#shown-items-right li');
+
+
+        // Make sure all items in the respective lists have the right 'tag'
+        // (in event of cross-list movement)
+        reassignToList({'target': 'left', 'items': $todoItemsLeft});
+        reassignToList({'target': 'mid', 'items': $todoItemsMid});
+        reassignToList({'target': 'right', 'items': $todoItemsRight});
 
         // Empty the order array
         order.length = 0;
