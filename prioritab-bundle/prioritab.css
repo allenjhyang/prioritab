@@ -229,19 +229,19 @@ input[type="text"]:focus {
 
 /* COLOR CORNER */
 
-#color-corner {
+#customize-corner {
     position: absolute;
     left: 50px;
     bottom: 20px;
     width: 25%;
 }
 
-#color-corner-title {
+#customize-corner-title {
     font-weight: bold;
     text-decoration: underline;
 }
 
-#color-button {
+#customize-button {
     width: 1em;
     height: 1em;
     text-align: center;
@@ -250,7 +250,7 @@ input[type="text"]:focus {
     font-weight: bold;
 }
 
-#color-selectors {
+#customize-selectors {
     font-size: 0.6em;
     display: none;
 }
@@ -259,6 +259,10 @@ input[type="text"]:focus {
     bottom: 20px;
     left: 175px;
     top: auto;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }
 
 /* INFO CORNER */

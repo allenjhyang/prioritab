@@ -131,19 +131,25 @@
 
     </div>
 
-    <div id="color-corner">
-        <img id="color-button" src="gear_icon.png" />
-        <div id="color-selectors">
-            <p id="color-corner-title">Customize colors</p>
-            <span id="background-color-selector" class="color-selector-label">Background ></span><span id="background-colpick"></span>
+    <div id="customize-corner">
+        <img id="customize-button" src="gear_icon.png" />
+        <div id="customize-selectors">
+            <p id="customize-corner-title">Customization</p>
+            <p>Colors:</p>
+            <span id="background-color-selector" class="color-selector-label cursor-pointer">Background ></span><span id="background-colpick"></span>
             <br />
-            <span id="font-color-selector" class="color-selector-label">Font ></span>
+            <span id="font-color-selector" class="color-selector-label cursor-pointer">Font ></span>
             <br />
-            <span id="shadow-color-selector" class="color-selector-label">Secondary Font ></span>
+            <span id="shadow-color-selector" class="color-selector-label cursor-pointer">Secondary Font ></span>
             <br />
             <br />
-            <span id="restore-default-colors">Restore defaults ></span>
-            <p id="hide-color-selectors">(Hide)</p>
+            <span id="restore-default-colors" class="cursor-pointer">Restore default colors ></span>
+            <br />
+            <br />
+            <input type="checkbox" name="workday-on" id="workday-checkbox">Make day timer based on my workday:
+            <br />
+            <span>Workday start: </span><input type="time" name="workday-start" id="workday-start-timeinput" value="09:00"><span> - Workday ends </span><input type="time" name="workday-end" id="workday-end-timeinput" value="18:00"><button id="workday-time-save">Save</button>
+            <p id="hide-customize-selectors" class="cursor-pointer">(Hide)</p>
         </div>
     </div>
 

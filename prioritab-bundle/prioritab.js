@@ -13,6 +13,16 @@ function GetDate() {
     document.getElementById('datebox').innerHTML = prettyDate;
 }
 
+function CheckDayCountdown() {
+    if ($("#workday-checkbox").is(":checked")) {
+        chrome.storage.sync.set({'user-use-workday': 'true'});
+        CountdownWorkday();
+    } else {
+        chrome.storage.sync.set({'user-use-workday': 'false'});
+        CountdownDay();
+    }
+}
+
 function CountdownDay() {
     var now = new Date(),
         todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()),
@@ -21,7 +31,45 @@ function CountdownDay() {
         progressPCT = progressMS / totalDayMS * 100,
         prettyPCT = Math.round(progressPCT);
 
+    $("#countdown-day .countdown-label").replaceWith("<div class='countdown-label'>...of the day</div>");
     document.getElementById('countdown-day-amount').innerHTML = prettyPCT + "%";
+}
+
+function CountdownWorkday() {
+    // var now = new Date(),
+    //     todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()),
+    //     progressMS = now - todayStart,
+    //     totalDayMS = 24 * 60 * 60 * 1000,
+    //     progressPCT = progressMS / totalDayMS * 100,
+    //     prettyPCT = Math.round(progressPCT);
+
+    var workdayStartString, workdayEndString, workdayStartHour, workdayStartMin, workdayEndHour, workdayEndMin, progressPCT;
+
+    chrome.storage.sync.get(['user-workday-start', 'user-workday-end'], function(retrieved) {
+        workdayStartString = retrieved['user-workday-start'] ? retrieved['user-workday-start'] : "09:00";
+        workdayEndString = retrieved['user-workday-end'] ? retrieved['user-workday-end'] : "18:00";
+        workdayStartHour = workdayStartString.split(":")[0];
+        workdayStartMin = workdayStartString.split(":")[1];
+        workdayEndHour = workdayEndString.split(":")[0];
+        workdayEndMin = workdayEndString.split(":")[1];
+        var now = new Date(),
+            workdayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate(), parseInt(workdayStartHour), parseInt(workdayStartMin)),
+            workdayEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), parseInt(workdayEndHour), parseInt(workdayEndMin));
+
+        if (now < workdayStart) {
+            progressPCT = 0;
+        } else if (now > workdayEnd) {
+            progressPCT = 100;
+        } else {
+            var progressMS = now - workdayStart,
+                totalDayMS = workdayEnd - workdayStart;
+            progressPCT = progressMS / totalDayMS * 100;
+        }
+        var prettyPCT = Math.round(progressPCT);
+        $("#countdown-day .countdown-label").replaceWith("<div class='countdown-label'>...of the workday</div>");
+        document.getElementById('countdown-day-amount').innerHTML = prettyPCT + "%";
+    });
+
 }
 
 function CountdownMonthYear() {
@@ -54,7 +102,14 @@ function ScrollMessage() {
 window.onload = function() {
     GetTime();
     GetDate();
-    CountdownDay();
+    chrome.storage.sync.get('user-use-workday', function(result) {
+        if (result['user-use-workday'] === "true") {
+            CountdownWorkday();
+            $("#workday-checkbox").prop("checked", true);
+        } else {
+            CountdownDay();
+        }
+    });
     CountdownMonthYear();
     setInterval(GetTime, 1000);
     setInterval(CountdownDay, 900000);
@@ -70,6 +125,13 @@ window.onload = function() {
     chrome.storage.sync.get('user-shadow-color', function(result) {
         $('.shadow-color').css('color', (result['user-shadow-color']) ? result['user-shadow-color'] : 'grey');
     }); // This code also occurs in sortaeditalist.js, when initializing the to-dos and when adding new to-dos
+
+    chrome.storage.sync.get(['user-workday-start', 'user-workday-end'], function(retrieved) {
+        workdayStart = retrieved['user-workday-start'] ? retrieved['user-workday-start'] : "09:00";
+        workdayEnd = retrieved['user-workday-end'] ? retrieved['user-workday-end'] : "18:00";
+        $("#workday-start-timeinput")[0].value = workdayStart;
+        $("#workday-end-timeinput")[0].value = workdayEnd;
+    });
 
     $('.edit-priorities-link').click(function(e) {
         $('.edit-priorities').each(function(index) {
@@ -95,14 +157,14 @@ window.onload = function() {
         $(this).children('#info-button').fadeIn();
     });
 
-    $('#color-button').click(function() {
-        $('#color-button').hide();
-        $('#color-selectors').fadeIn();
+    $('#customize-button').click(function() {
+        $('#customize-button').hide();
+        $('#customize-selectors').fadeIn();
     });
 
-    $('#hide-color-selectors').click(function() {
-        $('#color-selectors').hide();
-        $('#color-button').fadeIn();
+    $('#hide-customize-selectors').click(function() {
+        $('#customize-selectors').hide();
+        $('#customize-button').fadeIn();
     });
 
     $('#background-color-selector').colpick({
@@ -150,7 +212,7 @@ window.onload = function() {
         }
     });
 
-    $('.color-selector-label').click(function(e) {
+    $('.customize-selector-label').click(function(e) {
         $(this).siblings('.color-selector-label').css('visibility', 'hidden');
         $(this).show();
         $(this).css('font-weight', 'bold');
@@ -163,6 +225,17 @@ window.onload = function() {
         chrome.storage.sync.set({'user-font-color': 'white'});
         $('.shadow-color').css('color', 'gray');
         chrome.storage.sync.set({'user-shadow-color': 'gray'});
+    });
+
+    $('#workday-checkbox').click(function(e) {
+        CheckDayCountdown();
+    });
+
+    $("#workday-time-save").click(function(e) {
+        var workdayStart = $("#workday-start-timeinput")[0].value,
+            workdayEnd = $("#workday-end-timeinput")[0].value;
+        chrome.storage.sync.set({'user-workday-start': workdayStart, 'user-workday-end': workdayEnd});
+        CheckDayCountdown();
     });
 
     ScrollMessage();
