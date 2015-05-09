@@ -35,7 +35,7 @@ ul li {
 }
 
 #top-row-table {
-    width: 95%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -46,7 +46,7 @@ ul li {
 }
 
 #nowbox-td {
-    width: 310px;
+    width: 30%;
 }
 
 #nowbox {
@@ -133,7 +133,6 @@ ul li {
 
 .priorities {
     width: 30%;
-    margin: 0 10px 0 10px;
     display: inline-block;
     vertical-align: top;
 }
