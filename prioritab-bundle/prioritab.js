@@ -99,6 +99,36 @@ function ScrollMessage() {
     });
 }
 
+$(document).click(function(event) {
+    if(!$(event.target).closest('#customize-corner').length) {
+        if($('#customize-corner').is(":visible")) {
+            $('#customize-selectors').hide();
+            $('#customize-button').fadeIn();
+        }
+    }
+
+    if(!$(event.target).closest('#list-left').length) {
+        if($('#list-left .edit-priorities').is(":visible")) {
+            $('#list-left .edit-priorities').hide();
+            $('#list-left .edit-priorities-link').show();
+        }
+    }
+
+    if(!$(event.target).closest('#list-mid').length) {
+        if($('#list-mid .edit-priorities').is(":visible")) {
+            $('#list-mid .edit-priorities').hide();
+            $('#list-mid .edit-priorities-link').show();
+        }
+    }
+
+    if(!$(event.target).closest('#list-right').length) {
+        if($('#list-right .edit-priorities').is(":visible")) {
+            $('#list-right .edit-priorities').hide();
+            $('#list-right .edit-priorities-link').show();
+        }
+    }
+});
+
 window.onload = function() {
     GetTime();
     GetDate();
