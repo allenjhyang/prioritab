@@ -252,6 +252,7 @@ input[type="text"]:focus {
 #customize-selectors {
     font-size: 0.6em;
     display: none;
+    background-color: #333333;
 }
 
 .colpick {

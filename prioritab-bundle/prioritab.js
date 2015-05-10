@@ -140,6 +140,7 @@ window.onload = function() {
 
     chrome.storage.sync.get('user-background-color', function(result) {
         $('body').css('background-color', (result['user-background-color']) ? result['user-background-color'] : '#333333');
+        $('#customize-selectors').css('background-color', (result['user-background-color']) ? result['user-background-color'] : '#333333');
     });
 
     chrome.storage.sync.get('user-font-color', function(result) {
@@ -211,6 +212,7 @@ window.onload = function() {
         color: '#333333',
         onChange: function(hsb,hex,rgb,el,bySetColor) {
             $('body').css('background-color', '#' + hex);
+            $('#customize-selectors').css('background-color', '#' + hex);
             chrome.storage.sync.set({'user-background-color': '#' + hex});
         },
         onHide: function(cpobj) {
@@ -257,6 +259,7 @@ window.onload = function() {
 
     $('#restore-default-colors').click(function(e) {
         $('body').css('background-color', '#333333');
+        $('#customize-selectors').css('background-color', '#333333');
         chrome.storage.sync.set({'user-background-color': '#333333'});
         $('body').css('color', 'white');
         chrome.storage.sync.set({'user-font-color': 'white'});
