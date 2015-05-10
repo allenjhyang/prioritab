@@ -36,12 +36,6 @@ function CountdownDay() {
 }
 
 function CountdownWorkday() {
-    // var now = new Date(),
-    //     todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()),
-    //     progressMS = now - todayStart,
-    //     totalDayMS = 24 * 60 * 60 * 1000,
-    //     progressPCT = progressMS / totalDayMS * 100,
-    //     prettyPCT = Math.round(progressPCT);
 
     var workdayStartString, workdayEndString, workdayStartHour, workdayStartMin, workdayEndHour, workdayEndMin, progressPCT;
 
@@ -91,7 +85,7 @@ function CountdownMonthYear() {
 
 function ScrollMessage() {
     $('.shown-items').each(function(index) {
-        if ($(this).height() > 1 && $(this).height() > ($(this).parent().height() - 50)) {
+        if ($(this).height() > 1 && $(this).height() > ($(this).parent().height() - 55)) {
             $(this).parent().parent().siblings('.scroll-message').show();
         } else {
             $(this).parent().parent().siblings('.scroll-message').fadeOut();
@@ -155,6 +149,19 @@ window.onload = function() {
     chrome.storage.sync.get('user-shadow-color', function(result) {
         $('.shadow-color').css('color', (result['user-shadow-color']) ? result['user-shadow-color'] : 'grey');
     }); // This code also occurs in sortaeditalist.js, when initializing the to-dos and when adding new to-dos
+
+    // Show update message?
+    chrome.storage.sync.get('update-20150510', function(result) {
+        if (!result['update-20150510']) {
+            $("#update-footer").fadeIn(500).fadeOut(500).fadeIn(500);
+            chrome.storage.sync.set({'update-20150510': true});
+        }
+    });
+
+    $("#update-hide").click(function(e) {
+        $("#update-footer").hide();
+        chrome.storage.sync.set({'update-20150510': true});
+    });
 
     chrome.storage.sync.get(['user-workday-start', 'user-workday-end'], function(retrieved) {
         workdayStart = retrieved['user-workday-start'] ? retrieved['user-workday-start'] : "09:00";

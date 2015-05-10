@@ -2,9 +2,6 @@
 // http://web.koesbong.com/2011/01/24/sortable-and-editable-to-do-list-using-html5s-localstorage/
 
 $(function() {
-    // var il = Number(localStorage.getItem('todo-counter-left')) + 1,
-    //     im = Number(localStorage.getItem('todo-counter-mid')) + 1,
-    //     ir = Number(localStorage.getItem('todo-counter-right')) + 1,
     var il, im, ir,
         listCounters = ['todo-counter-left', 'todo-counter-mid', 'todo-counter-right'],
         j = 0,
@@ -330,8 +327,10 @@ $(function() {
                     objToSave[newID] = oldValue;
                     chrome.storage.sync.set(objToSave);
                 });
+
             }
         });
+        ScrollMessage();
     };
 
     $.subscribe('/regenerate-list/', function() {
