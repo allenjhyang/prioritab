@@ -49,21 +49,21 @@ $(function() {
         // Render existing todo items into the three separate lists
         chrome.storage.sync.get(orderListLeft, function(result) {
             orderListLeft.forEach(function(key){
-                $('#shown-items-left').append("<li id='" + key + "'>" + result[key] + "&nbsp;&nbsp;&nbsp;<a href='#' class='shadow-color'>X</a></li>");
+                $('#shown-items-left').append("<li class='todo-card' id='" + key + "'>" + result[key] + "&nbsp;&nbsp;&nbsp;<a href='#' class='shadow-color'>X</a></li>");
             });
             $('li a').fadeOut();
         });
 
         chrome.storage.sync.get(orderListMid, function(result) {
             orderListMid.forEach(function(key){
-                $('#shown-items-mid').append("<li id='" + key + "'>" + result[key] + "&nbsp;&nbsp;&nbsp;<a href='#' class='shadow-color'>X</a></li>");
+                $('#shown-items-mid').append("<li class='todo-card' id='" + key + "'>" + result[key] + "&nbsp;&nbsp;&nbsp;<a href='#' class='shadow-color'>X</a></li>");
             });
             $('li a').fadeOut();
         });
 
         chrome.storage.sync.get(orderListRight, function(result) {
             orderListRight.forEach(function(key){
-                $('#shown-items-right').append("<li id='" + key + "'>" + result[key] + "&nbsp;&nbsp;&nbsp;<a href='#' class='shadow-color'>X</a></li>");
+                $('#shown-items-right').append("<li class='todo-card' id='" + key + "'>" + result[key] + "&nbsp;&nbsp;&nbsp;<a href='#' class='shadow-color'>X</a></li>");
             });
             $('li a').fadeOut();
             ScrollMessage();
@@ -232,7 +232,7 @@ $(function() {
 
             // Append a new list item with the value of the new todo list
             chrome.storage.sync.get(newTodoID, function(result) {
-                listToImpact.append("<li id='" + newTodoID + "'>" + result[newTodoID] + "&nbsp;&nbsp;&nbsp;<a href='#' class='shadow-color'>X</a></li>");
+                listToImpact.append("<li class='todo-card' id='" + newTodoID + "'>" + result[newTodoID] + "&nbsp;&nbsp;&nbsp;<a href='#' class='shadow-color'>X</a></li>");
                 chrome.storage.sync.get('user-shadow-color', function(result) {
                     $('.shadow-color').css('color', (result['user-shadow-color']) ? result['user-shadow-color'] : 'grey');
                 });

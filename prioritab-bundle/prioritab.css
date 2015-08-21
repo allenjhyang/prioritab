@@ -139,14 +139,14 @@ ul li {
 }
 
 .list-container {
-    overflow: hidden;
+    overflow-y: auto;
 }
 
 .list-scrollable {
     overflow: auto;
-    width: 101%;
-    max-height: 98%;
-    padding-right: 20px;
+    width: 100%;
+    max-height: 100%;
+    margin-top: 10px;
 
 }
 
@@ -172,6 +172,14 @@ ul li {
     background: none;
     font-size: 1em;
     color: inherit;
+}
+
+ul {
+    padding: 0;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
 }
 
 li a {
@@ -226,6 +234,24 @@ input[type="text"]:focus {
     font-size: 0.5em;
     margin-top: 10px;
 }
+
+.todo-card {
+    border: 1px solid white;
+    list-style-position: inside;
+    padding: 0.5em;
+}
+
+::-webkit-scrollbar {
+    width: 1px;
+}
+
+::-webkit-scrollbar-thumb {  /* This is the part of the scroll that represents where you are */
+      background-color: white;
+} /* this will style the thumb, ignoring the track */
+
+::-webkit-scrollbar-track {  /* This is what the thumb travels on */
+      background-color: #333333;
+} /* the new scrollbar will have a flat appearance with the set background color */
 
 /* COLOR CORNER */
 
