@@ -49,24 +49,24 @@ $(function() {
         // Render existing todo items into the three separate lists
         chrome.storage.sync.get(orderListLeft, function(result) {
             orderListLeft.forEach(function(key){
-                $('#shown-items-left').append("<li class='todo-card' id='" + key + "'>" + result[key] + "&nbsp;&nbsp;&nbsp;<a href='#' class='shadow-color'>X</a></li>");
+                $('#shown-items-left').append("<li class='todo-card' id='" + key + "'>" + result[key] + "&nbsp;&nbsp;&nbsp;<span class='pull-right'><a href='#' class='shadow-color'>X</a></span></li>");
             });
             $('li a').fadeOut();
         });
 
         chrome.storage.sync.get(orderListMid, function(result) {
             orderListMid.forEach(function(key){
-                $('#shown-items-mid').append("<li class='todo-card' id='" + key + "'>" + result[key] + "&nbsp;&nbsp;&nbsp;<a href='#' class='shadow-color'>X</a></li>");
+                $('#shown-items-mid').append("<li class='todo-card' id='" + key + "'>" + result[key] + "&nbsp;&nbsp;&nbsp;<span class='pull-right'><a href='#' class='shadow-color'>X</a></span></li>");
             });
             $('li a').fadeOut();
         });
 
         chrome.storage.sync.get(orderListRight, function(result) {
             orderListRight.forEach(function(key){
-                $('#shown-items-right').append("<li class='todo-card' id='" + key + "'>" + result[key] + "&nbsp;&nbsp;&nbsp;<a href='#' class='shadow-color'>X</a></li>");
+                $('#shown-items-right').append("<li class='todo-card' id='" + key + "'>" + result[key] + "&nbsp;&nbsp;&nbsp;<span class='pull-right'><a href='#' class='shadow-color'>X</a></span></li>");
             });
             $('li a').fadeOut();
-            ScrollMessage();
+            // ScrollMessage();
         });
 
         chrome.storage.sync.get('user-shadow-color', function(result) {
@@ -94,14 +94,12 @@ $(function() {
     // Remove todo
     $itemListLeft.delegate('a', 'click', function(e) {
         var $this = $(this);
-
         e.preventDefault();
         $.publish('/remove/', [$this]);
     });
 
     $itemListMid.delegate('a', 'click', function(e) {
         var $this = $(this);
-
         e.preventDefault();
         $.publish('/remove/', [$this]);
     });
@@ -232,7 +230,7 @@ $(function() {
 
             // Append a new list item with the value of the new todo list
             chrome.storage.sync.get(newTodoID, function(result) {
-                listToImpact.append("<li class='todo-card' id='" + newTodoID + "'>" + result[newTodoID] + "&nbsp;&nbsp;&nbsp;<a href='#' class='shadow-color'>X</a></li>");
+                listToImpact.append("<li class='todo-card' id='" + newTodoID + "'>" + result[newTodoID] + "&nbsp;&nbsp;&nbsp;<span class='pull-right'><a href='#' class='shadow-color'>X</a></span></li>");
                 chrome.storage.sync.get('user-shadow-color', function(result) {
                     $('.shadow-color').css('color', (result['user-shadow-color']) ? result['user-shadow-color'] : 'grey');
                 });
@@ -261,24 +259,24 @@ $(function() {
                     chrome.storage.sync.set({'todo-counter-right': ir});
                     break;
             }
-            ScrollMessage();
+            // ScrollMessage();
         }
     });
 
     $.subscribe('/remove/', function($this) {
-        var parentId = $this.parent().attr('id');
+        var parentId = $this.parent().parent().attr('id');
 
         // Remove todo list from localStorage based on the id of the clicked parent element
         chrome.storage.sync.remove(parentId);
 
         // Fade out the list item then remove from DOM
         $this.parent().fadeOut(function() {
-            $this.parent().remove();
+            $this.parent().parent().remove();
 
             $.publish('/regenerate-list/', []);
         });
 
-        ScrollMessage();
+        // ScrollMessage();
     });
 
     var reassignToList = function (inputDict) {
@@ -330,7 +328,7 @@ $(function() {
 
             }
         });
-        ScrollMessage();
+        // ScrollMessage();
     };
 
     $.subscribe('/regenerate-list/', function() {
@@ -396,7 +394,7 @@ $(function() {
             }
             chrome.storage.sync.set({'todo-orders': newOrderList.join(',')});
             listToImpact.remove();
-            ScrollMessage();
+            // ScrollMessage();
         });
 
     });

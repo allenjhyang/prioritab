@@ -83,15 +83,15 @@ function CountdownMonthYear() {
     document.getElementById('countdown-year-amount').innerHTML = prettyYearPCT + "%";
 }
 
-function ScrollMessage() {
-    $('.shown-items').each(function(index) {
-        if ($(this).height() > 1 && $(this).height() > ($(this).parent().height() - 55)) {
-            $(this).parent().parent().siblings('.scroll-message').show();
-        } else {
-            $(this).parent().parent().siblings('.scroll-message').fadeOut();
-        }
-    });
-}
+// function ScrollMessage() {
+//     $('.shown-items').each(function(index) {
+//         if ($(this).height() > 1 && $(this).height() > ($(this).parent().height() - 55)) {
+//             $(this).parent().parent().siblings('.scroll-message').show();
+//         } else {
+//             $(this).parent().parent().siblings('.scroll-message').fadeOut();
+//         }
+//     });
+// }
 
 $(document).click(function(event) {
     if(!$(event.target).closest('#customize-corner').length) {
@@ -278,5 +278,5 @@ window.onload = function() {
         CheckDayCountdown();
     });
 
-    ScrollMessage();
+    // ScrollMessage();
 };
