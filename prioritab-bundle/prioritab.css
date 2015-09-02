@@ -154,6 +154,7 @@ ul li {
 
 .shown-items {
     text-align: left;
+    min-height: 10px;
 }
 
 .priorities-title {
@@ -240,7 +241,8 @@ input[type="text"]:focus {
 .todo-card {
     border: 1px solid white;
     list-style-position: inside;
-    padding: 0.5em;
+    padding: 0.5em 0.5em 0.5em 1.5em;
+    text-indent: -1em;
     background-color: #333333;
 }
 
