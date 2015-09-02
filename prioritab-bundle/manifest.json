@@ -1,7 +1,7 @@
 {
     "name": "Prioritab",
     "description": "A new tab page to remind you of your priorities",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "chrome_url_overrides": {
         "newtab": "prioritab.html"
     },
