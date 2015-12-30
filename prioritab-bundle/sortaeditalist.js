@@ -385,6 +385,12 @@ $(function() {
                     chrome.storage.sync.set(objToSave);
                 });
 
+                if (checkIfCompleted(oldID)) {  // If the todo was already done
+                    dones.splice(dones.indexOf(oldID), 1);  // Remove the old todo ID from the dones list
+                    dones.push(newID);  // and push in the new one
+                    chrome.storage.sync.set({'todo-dones': dones});
+                }
+
             }
         });
         // ScrollMessage();
