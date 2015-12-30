@@ -14,6 +14,7 @@ $(function() {
         $itemListMid = $('#shown-items-mid'),
         $itemListRight = $('#shown-items-right'),
         $editable = $('.editable'),
+        $sweepDone = $('.sweep-link'),
         $clearAll = $('.clear-all-link'),
         $newTodo = $('.todo'),
         order = [],
@@ -34,7 +35,14 @@ $(function() {
     // Holds the HTML for a todo card (HTML might appear elsewhere as well)
     var constructToDoCard = function (toDoKey, toDoText) {
         var done = (checkIfCompleted(toDoKey)) ? 'checked' : '';
-        return "<li class='todo-card' id='" + toDoKey + "'><div class='squaredThree'><input id='" + toDoKey + "-check' type='checkbox' name='check' " + done + "/><label for='" + toDoKey + "-check'></label></div><div class='todo-text'>" + toDoText + "</div><div class='pull-right todo-card-right'><a href='#' class='shadow-color'><img src='garbage_icon.png' /></a></div></li>";
+        return "<li class='todo-card' id='" + toDoKey + "'>" +
+                    "<div class='squaredThree'>" +
+                        "<input id='" + toDoKey + "-check' type='checkbox' name='check' " + done + "/>" +
+                        "<label for='" + toDoKey + "-check'></label>" +
+                    "</div>" +
+                    "<div class='todo-text'>" + toDoText + "</div>" +
+                    "<div class='pull-right todo-card-right'><a href='#' class='shadow-color'><img src='garbage_icon.png' /></a></div>" +
+                "</li>";
     };
 
     // Load todo list keys
@@ -89,10 +97,6 @@ $(function() {
             $('li a').fadeOut();
             // ScrollMessage();
         });
-
-        // dones.forEach(function(toDoKey) {
-        //     $("#" + toDoKey).addClass('todo-card-done');
-        // });
 
         chrome.storage.sync.get('user-shadow-color', function(result) {
             $('.shadow-color').css('color', (result['user-shadow-color']) ? result['user-shadow-color'] : 'grey');
@@ -188,11 +192,18 @@ $(function() {
             }
     });
 
+    // Sweep done
+    $sweepDone.click(function(e) {
+        e.preventDefault();
+        var listToImpact = e.originalEvent.srcElement.getAttribute('data-list');
+        $.publish('/clear-all/', [listToImpact, false]);
+    });
+
     // Clear all
     $clearAll.click(function(e) {
         e.preventDefault();
         var listToImpact = e.originalEvent.srcElement.getAttribute('data-list');
-        $.publish('/clear-all/', [listToImpact]);
+        $.publish('/clear-all/', [listToImpact, true]);
     });
 
     // Fade In and Fade Out the Remove link on hover
@@ -414,35 +425,28 @@ $(function() {
         chrome.storage.sync.set({'todo-orders': order.join(',')});
     });
 
-    $.subscribe('/clear-all/', function(listToImpactName) {
+    $.subscribe('/clear-all/', function(listToImpactName, clearAll) {
+
         var $todoListLi = $('#shown-items-left li'),
             listToImpact;
 
         switch (listToImpactName) {
             case 'left':
-                listToImpact = $('#shown-items-left li');
+                itemsToImpact = $('#shown-items-left li a');
                 break;
             case 'mid':
-                listToImpact = $('#shown-items-mid li');
+                itemsToImpact = $('#shown-items-mid li a');
                 break;
             case 'right':
-                listToImpact = $('#shown-items-right li');
+                itemsToImpact = $('#shown-items-right li a');
                 break;
         }
 
-        chrome.storage.sync.get('todo-orders', function(retrieved){
-            var orderList = retrieved['todo-orders'] ? retrieved['todo-orders'].split(',') : [];
-            var newOrderList = [];
-            for (ind = 0; ind < orderList.length; ind++) {
-                if (orderList[ind].indexOf(listToImpactName) < 0) {
-                    newOrderList.push(orderList[ind]);
-                } else {
-                    chrome.storage.sync.remove(orderList[ind]);
-                }
+        itemsToImpact.each(function(index) {
+            var parentId = $(this).parent().parent().attr('id');
+            if (clearAll || (!clearAll && checkIfCompleted(parentId))) {
+                $.publish('/remove/', [$(this)]);
             }
-            chrome.storage.sync.set({'todo-orders': newOrderList.join(',')});
-            listToImpact.remove();
-            // ScrollMessage();
         });
 
     });

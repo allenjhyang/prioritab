@@ -170,6 +170,11 @@ ul li {
     text-decoration: none;
 }
 
+.sweep-link {
+    font-size: inherit;
+    text-decoration: none;
+}
+
 .add-item-button {
     border: none;
     box-shadow: none;
