@@ -3,7 +3,7 @@
 
 $(function() {
     var il, im, ir,
-        listCounters = ['todo-counter-left', 'todo-counter-mid', 'todo-counter-right'],
+        listCounters = ['todo-counter-left', 'todo-counter-mid', 'todo-counter-right', 'todo-dones'],
         j = 0,
         k,
         $formLeft = $('#todo-form-left'),
@@ -23,11 +23,18 @@ $(function() {
         il = (result['todo-counter-left']) ? result['todo-counter-left'] + 1 : 1;
         im = (result['todo-counter-mid']) ? result['todo-counter-mid'] + 1 : 1;
         ir = (result['todo-counter-right']) ? result['todo-counter-right'] + 1 : 1;
+        dones = (result['todo-dones']) ? result['todo-dones'] : [];
     });
+
+    var checkIfCompleted = function (toDoKey) {
+        var done = (dones.indexOf(toDoKey) > -1);
+        return done;
+    };
 
     // Holds the HTML for a todo card (HTML might appear elsewhere as well)
     var constructToDoCard = function (toDoKey, toDoText) {
-        return "<li class='todo-card' id='" + toDoKey + "'><div class='squaredThree'><input id='" + toDoKey + "-check' type='checkbox' name='check'/><label for='" + toDoKey + "-check'></label></div><div class='todo-text'>" + toDoText + "</div><div class='pull-right todo-card-right'><a href='#' class='shadow-color'><img src='garbage_icon.png' /></a></div></li>";
+        var done = (checkIfCompleted(toDoKey)) ? 'checked' : '';
+        return "<li class='todo-card' id='" + toDoKey + "'><div class='squaredThree'><input id='" + toDoKey + "-check' type='checkbox' name='check' " + done + "/><label for='" + toDoKey + "-check'></label></div><div class='todo-text'>" + toDoText + "</div><div class='pull-right todo-card-right'><a href='#' class='shadow-color'><img src='garbage_icon.png' /></a></div></li>";
     };
 
     // Load todo list keys
@@ -55,6 +62,9 @@ $(function() {
         chrome.storage.sync.get(orderListLeft, function(result) {
             orderListLeft.forEach(function(key){
                 $('#shown-items-left').append(constructToDoCard(key, result[key]));
+                if (checkIfCompleted(key)) {
+                    $('#' + key).find('.todo-text').addClass('todo-card-done');
+                }
             });
             $('li a').fadeOut();
         });
@@ -62,6 +72,9 @@ $(function() {
         chrome.storage.sync.get(orderListMid, function(result) {
             orderListMid.forEach(function(key){
                 $('#shown-items-mid').append(constructToDoCard(key, result[key]));
+                if (checkIfCompleted(key)) {
+                    $('#' + key).find('.todo-text').addClass('todo-card-done');
+                }
             });
             $('li a').fadeOut();
         });
@@ -69,10 +82,17 @@ $(function() {
         chrome.storage.sync.get(orderListRight, function(result) {
             orderListRight.forEach(function(key){
                 $('#shown-items-right').append(constructToDoCard(key, result[key]));
+                if (checkIfCompleted(key)) {
+                    $('#' + key).find('.todo-text').addClass('todo-card-done');
+                }
             });
             $('li a').fadeOut();
             // ScrollMessage();
         });
+
+        // dones.forEach(function(toDoKey) {
+        //     $("#" + toDoKey).addClass('todo-card-done');
+        // });
 
         chrome.storage.sync.get('user-shadow-color', function(result) {
             $('.shadow-color').css('color', (result['user-shadow-color']) ? result['user-shadow-color'] : 'grey');
@@ -80,12 +100,19 @@ $(function() {
 
     });
 
-    $('#shown-items-left').on('change','input[type=checkbox]',function(){
+    // What happens when you check the checkbox...
+    $('.shown-items').on('change','input[type=checkbox]',function(){
+        var toDoKey = $(this).parent().parent().attr('id');
         if ($(this).is(':checked') === true) {
             $(this).parent().parent().find('.todo-text').addClass('todo-card-done');
+            dones.push(toDoKey);
         } else {
             $(this).parent().parent().find('.todo-text').removeClass('todo-card-done');
+            if (checkIfCompleted(toDoKey)) {
+                dones.splice(dones.indexOf(toDoKey), 1);
+            }
         }
+        chrome.storage.sync.set({'todo-dones': dones});
     });
 
     // Add todo
@@ -245,7 +272,7 @@ $(function() {
 
             // Append a new list item with the value of the new todo list
             chrome.storage.sync.get(newTodoID, function(result) {
-                listToImpact.append("<li class='todo-card' id='" + newTodoID + "'><span class='todo-text'>" + result[newTodoID] + "</span>&nbsp;&nbsp;&nbsp;<span class='pull-right'><a href='#' class='shadow-color'>X</a></span></li>");
+                listToImpact.append(constructToDoCard(newTodoID, result[newTodoID]));
                 chrome.storage.sync.get('user-shadow-color', function(result) {
                     $('.shadow-color').css('color', (result['user-shadow-color']) ? result['user-shadow-color'] : 'grey');
                 });
@@ -283,6 +310,12 @@ $(function() {
 
         // Remove todo list from localStorage based on the id of the clicked parent element
         chrome.storage.sync.remove(parentId);
+
+        // Remove todo from the dones list, in case it was there
+        if (checkIfCompleted(parentId)) {
+            dones.splice(dones.indexOf(parentId), 1);
+            chrome.storage.sync.set({'todo-dones': dones});
+        }
 
         // Fade out the list item then remove from DOM
         $this.parent().fadeOut(function() {
