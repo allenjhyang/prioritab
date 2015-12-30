@@ -27,7 +27,7 @@ $(function() {
 
     // Holds the HTML for a todo card (HTML might appear elsewhere as well)
     var constructToDoCard = function (toDoKey, toDoText) {
-        return "<li class='todo-card' id='" + toDoKey + "'><div class='squaredThree'><input id='" + toDoKey + "-check' type='checkbox' name='check'/><label for='" + toDoKey + "-check'></label></div><div class='todo-text'>" + toDoText + "</div><div class='pull-right todo-card-right'><a href='#' class='shadow-color'>X</a></div></li>";
+        return "<li class='todo-card' id='" + toDoKey + "'><div class='squaredThree'><input id='" + toDoKey + "-check' type='checkbox' name='check'/><label for='" + toDoKey + "-check'></label></div><div class='todo-text'>" + toDoText + "</div><div class='pull-right todo-card-right'><a href='#' class='shadow-color'><img src='garbage_icon.png' /></a></div></li>";
     };
 
     // Load todo list keys
