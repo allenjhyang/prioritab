@@ -25,6 +25,11 @@ $(function() {
         ir = (result['todo-counter-right']) ? result['todo-counter-right'] + 1 : 1;
     });
 
+    // Holds the HTML for a todo card (HTML might appear elsewhere as well)
+    var constructToDoCard = function (toDoKey, toDoText) {
+        return "<li class='todo-card' id='" + toDoKey + "'><div class='squaredThree'><input id='" + toDoKey + "-check' type='checkbox' name='check'/><label for='" + toDoKey + "-check'></label></div><div class='todo-text'>" + toDoText + "</div><div class='pull-right todo-card-right'><a href='#' class='shadow-color'>X</a></div></li>";
+    };
+
     // Load todo list keys
     chrome.storage.sync.get('todo-orders', function(retrieved) {
         orderList = retrieved['todo-orders'];
@@ -49,21 +54,21 @@ $(function() {
         // Render existing todo items into the three separate lists
         chrome.storage.sync.get(orderListLeft, function(result) {
             orderListLeft.forEach(function(key){
-                $('#shown-items-left').append("<li class='todo-card' id='" + key + "'><span class='todo-text'>" + result[key] + "</span>&nbsp;&nbsp;&nbsp;<span class='pull-right'><a href='#' class='shadow-color'>X</a></span></li>");
+                $('#shown-items-left').append(constructToDoCard(key, result[key]));
             });
             $('li a').fadeOut();
         });
 
         chrome.storage.sync.get(orderListMid, function(result) {
             orderListMid.forEach(function(key){
-                $('#shown-items-mid').append("<li class='todo-card' id='" + key + "'><span class='todo-text'>" + result[key] + "</span>&nbsp;&nbsp;&nbsp;<span class='pull-right'><a href='#' class='shadow-color'>X</a></span></li>");
+                $('#shown-items-mid').append(constructToDoCard(key, result[key]));
             });
             $('li a').fadeOut();
         });
 
         chrome.storage.sync.get(orderListRight, function(result) {
             orderListRight.forEach(function(key){
-                $('#shown-items-right').append("<li class='todo-card' id='" + key + "'><span class='todo-text'>" + result[key] + "</span>&nbsp;&nbsp;&nbsp;<span class='pull-right'><a href='#' class='shadow-color'>X</a></span></li>");
+                $('#shown-items-right').append(constructToDoCard(key, result[key]));
             });
             $('li a').fadeOut();
             // ScrollMessage();
@@ -73,6 +78,14 @@ $(function() {
             $('.shadow-color').css('color', (result['user-shadow-color']) ? result['user-shadow-color'] : 'grey');
         });
 
+    });
+
+    $('#shown-items-left').on('change','input[type=checkbox]',function(){
+        if ($(this).is(':checked') === true) {
+            $(this).parent().parent().find('.todo-text').addClass('todo-card-done');
+        } else {
+            $(this).parent().parent().find('.todo-text').removeClass('todo-card-done');
+        }
     });
 
     // Add todo
