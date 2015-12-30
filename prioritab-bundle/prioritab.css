@@ -197,8 +197,7 @@ li a {
 
 .edit-priorities-link {
     display: block;
-    text-align: left;
-    margin-left: 42px;
+    text-align: right;
     text-decoration: none;
 }
 
