@@ -1,3 +1,8 @@
+// MODIFIED BY ME - Dec. 2015
+/* Changes:
+    - All 'click' events changed to 'dblclick'
+*/
+
 /*
  * jQuery inlineEdit
  *
@@ -20,7 +25,7 @@
 // cached values
 var namespace = '.inlineedit',
     placeholderClass = 'inlineEdit-placeholder',
-    events = ['click', 'mouseenter','mouseleave'].join(namespace+' ');
+    events = ['dblclick', 'mouseenter','mouseleave'].join(namespace+' ');
 
 // define inlineEdit method
 $.fn.inlineEdit = function( options ) {
@@ -48,7 +53,7 @@ $.fn.inlineEdit = function( options ) {
         widget.element.removeClass( widget.options.hover );
         if ( editableElement[0] != event.target  && editableElement.has(event.target).length == 0 ) {
             switch ( event.type ) {
-                case 'click':
+                case 'dblclick':
                     widget[ mutated ? 'mutate' : 'init' ]();
                     break;
 
@@ -148,14 +153,14 @@ $.inlineEdit.prototype = {
             .html( self.mutatedHtml( self.value() ) )
             .addClass( self.options.editInProgress )
             .find( '.save' )
-                .bind( 'click', function( event ) {
+                .bind( 'dblclick', function( event ) {
                     self.save( self.element, event );
                     self.change( self.element, event );
                     return false;
                 })
             .end()
             .find( '.cancel' )
-                .bind( 'click', function( event ) {
+                .bind( 'dblclick', function( event ) {
                     self.cancel( self.element, event );
                     self.change( self.element, event );
                     return false;
