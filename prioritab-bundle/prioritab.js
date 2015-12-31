@@ -165,16 +165,16 @@ window.onload = function() {
     SetColors();
 
     // Show update message?
-    chrome.storage.sync.get('update-20150510', function(result) {
-        if (!result['update-20150510']) {
+    chrome.storage.sync.get('update-20151231', function(result) {
+        if (!result['update-20151231']) {
             $("#update-footer").fadeIn(500).fadeOut(500).fadeIn(500);
-            chrome.storage.sync.set({'update-20150510': true});
+            chrome.storage.sync.set({'update-20151231': true});
         }
     });
 
     $("#update-hide").click(function(e) {
         $("#update-footer").hide();
-        chrome.storage.sync.set({'update-20150510': true});
+        chrome.storage.sync.set({'update-20151231': true});
     });
 
     chrome.storage.sync.get(['user-workday-start', 'user-workday-end'], function(retrieved) {
