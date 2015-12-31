@@ -123,6 +123,28 @@ $(document).click(function(event) {
     }
 });
 
+function SetColorProperty(classToChange, propToChange, newValue) {
+    var style = $('<style>.' + classToChange + ' { ' + propToChange + ': ' + newValue + '; }</style>');
+    $('html > head').append(style);
+}
+
+function SetColors() {
+    chrome.storage.sync.get('user-background-color', function(result) {
+        var bgcolor = (result['user-background-color']) ? result['user-background-color'] : '#333333';
+        SetColorProperty('main-bgcolor', 'background-color', bgcolor);
+    });
+
+    chrome.storage.sync.get('user-font-color', function(result) {
+        var fontColor = (result['user-font-color']) ? result['user-font-color'] : 'white';
+        SetColorProperty('main-font-color', 'color', fontColor);
+    });
+
+    chrome.storage.sync.get('user-shadow-color', function(result) {
+        var shadowColor = (result['user-shadow-color']) ? result['user-shadow-color'] : 'grey';
+        SetColorProperty('shadow-color', 'color', shadowColor);
+    });
+}
+
 window.onload = function() {
     GetTime();
     GetDate();
@@ -138,18 +160,7 @@ window.onload = function() {
     setInterval(GetTime, 1000);
     setInterval(CountdownDay, 900000);
 
-    chrome.storage.sync.get('user-background-color', function(result) {
-        $('body').css('background-color', (result['user-background-color']) ? result['user-background-color'] : '#333333');
-        $('#customize-selectors').css('background-color', (result['user-background-color']) ? result['user-background-color'] : '#333333');
-    });
-
-    chrome.storage.sync.get('user-font-color', function(result) {
-        $('body').css('color', (result['user-font-color']) ? result['user-font-color'] : 'white');
-    });
-
-    chrome.storage.sync.get('user-shadow-color', function(result) {
-        $('.shadow-color').css('color', (result['user-shadow-color']) ? result['user-shadow-color'] : 'grey');
-    }); // This code also occurs in sortaeditalist.js, when initializing the to-dos and when adding new to-dos
+    SetColors();
 
     // Show update message?
     chrome.storage.sync.get('update-20150510', function(result) {
@@ -211,8 +222,7 @@ window.onload = function() {
         colorScheme: 'dark',
         color: '#333333',
         onChange: function(hsb,hex,rgb,el,bySetColor) {
-            $('body').css('background-color', '#' + hex);
-            $('#customize-selectors').css('background-color', '#' + hex);
+            SetColorProperty('main-bgcolor', 'background-color', '#' + hex);
             chrome.storage.sync.set({'user-background-color': '#' + hex});
         },
         onHide: function(cpobj) {
@@ -227,7 +237,7 @@ window.onload = function() {
         colorScheme: 'dark',
         color: '#FFFFFF',
         onChange: function(hsb,hex,rgb,el,bySetColor) {
-            $('body').css('color', '#' + hex);
+            SetColorProperty('main-font-color', 'color', '#' + hex);
             chrome.storage.sync.set({'user-font-color': '#' + hex});
         },
         onHide: function(cpobj) {
@@ -242,7 +252,7 @@ window.onload = function() {
         colorScheme: 'dark',
         color: '#808080',
         onChange: function(hsb,hex,rgb,el,bySetColor) {
-            $('.shadow-color').css('color', '#' + hex);
+            SetColorProperty('shadow-color', 'color', '#' + hex);
             chrome.storage.sync.set({'user-shadow-color': '#' + hex});
         },
         onHide: function(cpobj) {
@@ -258,12 +268,11 @@ window.onload = function() {
     });
 
     $('#restore-default-colors').click(function(e) {
-        $('body').css('background-color', '#333333');
-        $('#customize-selectors').css('background-color', '#333333');
+        SetColorProperty('main-bgcolor', 'background-color', '#333333');
         chrome.storage.sync.set({'user-background-color': '#333333'});
-        $('body').css('color', 'white');
+        SetColorProperty('main-font-color', 'color', 'white');
         chrome.storage.sync.set({'user-font-color': 'white'});
-        $('.shadow-color').css('color', 'gray');
+        SetColorProperty('shadow-color', 'color', 'gray');
         chrome.storage.sync.set({'user-shadow-color': 'gray'});
     });
 

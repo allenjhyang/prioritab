@@ -35,7 +35,7 @@ $(function() {
     // Holds the HTML for a todo card (HTML might appear elsewhere as well)
     var constructToDoCard = function (toDoKey, toDoText) {
         var done = (checkIfCompleted(toDoKey)) ? 'checked' : '';
-        return "<li class='todo-card' id='" + toDoKey + "'>" +
+        return "<li class='todo-card main-bgcolor main-font-color' id='" + toDoKey + "'>" +
                     "<div class='squaredThree'>" +
                         "<input id='" + toDoKey + "-check' type='checkbox' name='check' " + done + "/>" +
                         "<label for='" + toDoKey + "-check'></label>" +
@@ -96,10 +96,6 @@ $(function() {
             });
             $('li a').fadeOut();
             // ScrollMessage();
-        });
-
-        chrome.storage.sync.get('user-shadow-color', function(result) {
-            $('.shadow-color').css('color', (result['user-shadow-color']) ? result['user-shadow-color'] : 'grey');
         });
 
     });
@@ -284,9 +280,6 @@ $(function() {
             // Append a new list item with the value of the new todo list
             chrome.storage.sync.get(newTodoID, function(result) {
                 listToImpact.append(constructToDoCard(newTodoID, result[newTodoID]));
-                chrome.storage.sync.get('user-shadow-color', function(result) {
-                    $('.shadow-color').css('color', (result['user-shadow-color']) ? result['user-shadow-color'] : 'grey');
-                });
                 $('li a:visible').fadeOut();
 
                 $.publish('/regenerate-list/', []);
@@ -454,6 +447,5 @@ $(function() {
                 $.publish('/remove/', [$(this)]);
             }
         });
-
     });
 });

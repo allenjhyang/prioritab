@@ -1,16 +1,10 @@
 /* GENERAL */
 
 body {
-    background-color: #333333;
-    color: white;
     font-size: 18px;
     overflow: hidden;
     min-width: 1200px;
     max-width: 1800px;
-}
-
-.shadow-color {
-    color: gray;
 }
 
 .vertical-gap {
@@ -25,6 +19,20 @@ ul li {
     margin-bottom: 2px;
     cursor: -webkit-grab;
     list-style-type: none;
+}
+
+/* Colors */
+
+.main-bgcolor {
+    background-color: #333333;
+}
+
+.shadow-color {
+    color: gray;
+}
+
+.main-font-color {
+    color: white;
 }
 
 /* TOP ROW - DATETIME & COUNTDOWN */
@@ -180,7 +188,6 @@ ul li {
     box-shadow: none;
     background: none;
     font-size: 1em;
-    color: inherit;
 }
 
 ul {
@@ -221,8 +228,6 @@ input[type="text"] {
     padding: 5px;
     border: solid 1px #707070;
     transition: box-shadow 0.3s, border 0.3s;
-    background-color: gray;
-    color: white;
     font-size: 1em;
 }
 
@@ -247,7 +252,6 @@ input[type="text"]:focus {
     border: 1px solid white;
     list-style-position: inside;
     padding: 0.5em 0.5em 0.5em 0.5em;
-    background-color: #333333;
 
     display: flex;
     align-items: center;
@@ -308,7 +312,6 @@ input[type="text"]:focus {
 #customize-selectors {
     font-size: 0.6em;
     display: none;
-    background-color: #333333;
 }
 
 .colpick {
