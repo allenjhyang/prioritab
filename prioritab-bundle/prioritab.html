@@ -142,26 +142,29 @@
     <div id="customize-corner">
         <img id="customize-button" src="gear_icon.png" />
         <div id="customize-selectors" class="main-bgcolor">
-            <p id="customize-corner-title">Customization</p>
-            <p>Colors:</p>
-            <span id="background-color-selector" class="color-selector-label cursor-pointer">Background ></span><span id="background-colpick"></span>
+            <h1 id="customize-corner-title">Customization</h1>
+            <h2>Colors:</h2>
+            <button id="background-color-selector" class="color-selector-label cursor-pointer">Background ></span><span id="background-colpick"></button>
             <br />
-            <span id="font-color-selector" class="color-selector-label cursor-pointer">Font ></span>
+            <button id="font-color-selector" class="color-selector-label cursor-pointer">Font ></button>
             <br />
-            <span id="shadow-color-selector" class="color-selector-label cursor-pointer">Secondary Font ></span>
-            <br />
-            <br />
-            <span id="restore-default-colors" class="cursor-pointer">Restore default colors ></span>
+            <button id="shadow-color-selector" class="color-selector-label cursor-pointer">Secondary Font ></button>
             <br />
             <br />
-            <input type="checkbox" name="workday-on" id="workday-checkbox">Make day timer based on my workday:
+            <button id="restore-default-colors" class="cursor-pointer">Restore default colors</button>
+            <br />
+            <br />
+            <h2>Times:</h2>
+            <input type="checkbox" name="workday-on" class="immune" id="workday-checkbox">Make day timer based on my workday:
             <br />
             <span>Workday start: </span>
             <input type="time" name="workday-start" id="workday-start-timeinput" value="09:00" class="time-input">
             <span> - Workday end: </span>
             <input type="time" name="workday-end" id="workday-end-timeinput" value="18:00" class="time-input">
             <button id="workday-time-save">Save</button>
-            <p id="hide-customize-selectors" class="cursor-pointer">(Hide)</p>
+            <br />
+            <br />
+            <button id="hide-customize-selectors" class="cursor-pointer">(Hide)</button>
         </div>
     </div>
 

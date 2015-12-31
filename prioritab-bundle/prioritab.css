@@ -297,7 +297,8 @@ input[type="text"]:focus {
 
 #customize-corner-title {
     font-weight: bold;
-    text-decoration: underline;
+    /*text-decoration: underline;*/
+    margin-top: 0px;
 }
 
 #customize-button {
@@ -312,6 +313,9 @@ input[type="text"]:focus {
 #customize-selectors {
     font-size: 0.6em;
     display: none;
+    border: 1px solid;
+    box-shadow: 1px 1px 1px;
+    padding: 5px;
 }
 
 .colpick {
@@ -395,7 +399,7 @@ input[type="text"]:focus {
 
 /* SQUARED THREE */
 
-input[type=checkbox] {
+input[type=checkbox]:not(.immune) {
     visibility: hidden;
 }
 
