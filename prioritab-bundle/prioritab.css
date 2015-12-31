@@ -27,12 +27,20 @@ ul li {
     background-color: #333333;
 }
 
+.main-font-color {
+    color: white;
+}
+
 .shadow-color {
     color: gray;
 }
 
-.main-font-color {
-    color: white;
+.main-border-color {
+    border-color: white;
+}
+
+.shadow-border-color {
+    border-color: gray;
 }
 
 /* TOP ROW - DATETIME & COUNTDOWN */
@@ -249,7 +257,7 @@ input[type="text"]:focus {
 }
 
 .todo-card {
-    border: 1px solid white;
+    border: 1px solid;
     list-style-position: inside;
     padding: 0.5em 0.5em 0.5em 0.5em;
 

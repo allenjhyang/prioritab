@@ -137,11 +137,13 @@ function SetColors() {
     chrome.storage.sync.get('user-font-color', function(result) {
         var fontColor = (result['user-font-color']) ? result['user-font-color'] : 'white';
         SetColorProperty('main-font-color', 'color', fontColor);
+        SetColorProperty('main-border-color', 'color', fontColor);
     });
 
     chrome.storage.sync.get('user-shadow-color', function(result) {
         var shadowColor = (result['user-shadow-color']) ? result['user-shadow-color'] : 'grey';
         SetColorProperty('shadow-color', 'color', shadowColor);
+        SetColorProperty('shadow-border-color', 'color', shadowColor);
     });
 }
 
@@ -238,6 +240,7 @@ window.onload = function() {
         color: '#FFFFFF',
         onChange: function(hsb,hex,rgb,el,bySetColor) {
             SetColorProperty('main-font-color', 'color', '#' + hex);
+            SetColorProperty('main-border-color', 'color', '#' + hex);
             chrome.storage.sync.set({'user-font-color': '#' + hex});
         },
         onHide: function(cpobj) {
@@ -253,6 +256,7 @@ window.onload = function() {
         color: '#808080',
         onChange: function(hsb,hex,rgb,el,bySetColor) {
             SetColorProperty('shadow-color', 'color', '#' + hex);
+            SetColorProperty('shadow-border-color', 'color', '#' + hex);
             chrome.storage.sync.set({'user-shadow-color': '#' + hex});
         },
         onHide: function(cpobj) {
@@ -271,8 +275,10 @@ window.onload = function() {
         SetColorProperty('main-bgcolor', 'background-color', '#333333');
         chrome.storage.sync.set({'user-background-color': '#333333'});
         SetColorProperty('main-font-color', 'color', 'white');
+        SetColorProperty('main-border-color', 'color', 'white');
         chrome.storage.sync.set({'user-font-color': 'white'});
         SetColorProperty('shadow-color', 'color', 'gray');
+        SetColorProperty('shadow-border-color', 'color', 'gray');
         chrome.storage.sync.set({'user-shadow-color': 'gray'});
     });
 

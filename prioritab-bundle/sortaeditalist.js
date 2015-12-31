@@ -35,8 +35,9 @@ $(function() {
     // Holds the HTML for a todo card (HTML might appear elsewhere as well)
     var constructToDoCard = function (toDoKey, toDoText) {
         var done = (checkIfCompleted(toDoKey)) ? 'checked' : '',
-            fontColorTouse = (done === 'checked') ? 'shadow-color' : 'main-font-color';
-        return "<li class='todo-card main-bgcolor " + fontColorTouse + "' id='" + toDoKey + "'>" +
+            fontColorToUse = (done === 'checked') ? 'shadow-color' : 'main-font-color',
+            borderColorToUse = (done === 'checked') ? 'shadow-border-color' : 'main-border-color';
+        return "<li class='todo-card main-bgcolor " + fontColorToUse + " " + borderColorToUse + "' id='" + toDoKey + "'>" +
                     "<div class='squaredThree'>" +
                         "<input id='" + toDoKey + "-check' type='checkbox' name='check' " + done + "/>" +
                         "<label for='" + toDoKey + "-check'></label>" +
@@ -105,11 +106,11 @@ $(function() {
     $('.shown-items').on('change','input[type=checkbox]',function(){
         var toDoKey = $(this).parent().parent().attr('id');
         if ($(this).is(':checked') === true) {
-            $(this).parent().parent().addClass('shadow-color').removeClass('main-font-color');
+            $(this).parent().parent().addClass('shadow-color').addClass('shadow-border-color').removeClass('main-font-color').removeClass('main-border-color');
             $(this).parent().parent().find('.todo-text').addClass('todo-card-done');
             dones.push(toDoKey);
         } else {
-            $(this).parent().parent().addClass('main-font-color').removeClass('shadow-color');
+            $(this).parent().parent().addClass('main-font-color').addClass('main-border-color').removeClass('shadow-color').removeClass('shadow-border-color');
             $(this).parent().parent().find('.todo-text').removeClass('todo-card-done');
             if (checkIfCompleted(toDoKey)) {
                 dones.splice(dones.indexOf(toDoKey), 1);
