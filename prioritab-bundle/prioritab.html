@@ -144,11 +144,11 @@
         <div id="customize-selectors" class="main-bgcolor">
             <h1 id="customize-corner-title">Customization</h1>
             <h2>Colors:</h2>
-            <button id="background-color-selector" class="color-selector-label cursor-pointer">Background ></span><span id="background-colpick"></button>
+            <button id="background-color-selector" class="color-selector-label cursor-pointer">Background &gt;</span><span id="background-colpick"></button>
             <br />
-            <button id="font-color-selector" class="color-selector-label cursor-pointer">Font ></button>
+            <button id="font-color-selector" class="color-selector-label cursor-pointer">Font &gt;</button>
             <br />
-            <button id="shadow-color-selector" class="color-selector-label cursor-pointer">Secondary Font ></button>
+            <button id="shadow-color-selector" class="color-selector-label cursor-pointer">Secondary Font &gt;</button>
             <br />
             <br />
             <button id="restore-default-colors" class="cursor-pointer">Restore default colors</button>
@@ -162,6 +162,22 @@
             <span> - Workday end: </span>
             <input type="time" name="workday-end" id="workday-end-timeinput" value="18:00" class="time-input">
             <button id="workday-time-save">Save</button>
+            <br />
+            <br />
+            <h2>Date and Time format:</h2>
+            <span>Date format: </span>
+            <select name="date-format-input" id="date-format-input">
+            <option>MMM D, YYYY</option>
+            <option>DD.MM.YYYY</option>
+            <option>YYYY-MM-DD</option>
+            <option>MM/DD/YY</option>
+            </select>
+            <span>Time format: </span>
+            <select name="time-format-input" id="time-format-input">
+            <option>h:mm:ss A</option>
+            <option>HH:mm:ss</option>
+            </select>
+            <button id="date-time-format-save">Save</button>
             <br />
             <br />
             <button id="hide-customize-selectors" class="cursor-pointer">(Hide)</button>

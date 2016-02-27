@@ -1,13 +1,15 @@
 // Other Prioritab scripts
 
+var dateFormat="YYYY-MM-DD", timeFormat="HH:mm:ss";
+
 function GetTime() {
-    var prettyTime = moment().format("h:mm:ss A");
+    var prettyTime = moment().format(window.timeFormat);
     document.getElementById('clockbox').innerHTML = prettyTime;
 }
 
 function GetDate() {
     var dayOfWeek = moment().format('dddd'),
-        prettyDate = moment().format("MMM D, YYYY");
+        prettyDate = moment().format(window.dateFormat);
 
     document.getElementById('daybox').innerHTML = dayOfWeek;
     document.getElementById('datebox').innerHTML = prettyDate;
@@ -147,9 +149,24 @@ function SetColors() {
     });
 }
 
+function SetDateTimeFormat() {
+    chrome.storage.sync.get({'user-date-format' : "MMM D, YYYY"}, function(result) {
+                dateFormat = result['user-date-format'];
+                GetDate();
+                $('#date-format-input').val(dateFormat);
+    });
+    chrome.storage.sync.get({'user-time-format' : "h:mm:ss A"}, function(result) {
+                timeFormat = result['user-time-format'];
+                GetTime();
+                $('#time-format-input').val(timeFormat);
+    });
+
+
+}
+
+
 window.onload = function() {
-    GetTime();
-    GetDate();
+    SetDateTimeFormat();
     chrome.storage.sync.get('user-use-workday', function(result) {
         if (result['user-use-workday'] === "true") {
             CountdownWorkday();
@@ -292,6 +309,16 @@ window.onload = function() {
         chrome.storage.sync.set({'user-workday-start': workdayStart, 'user-workday-end': workdayEnd});
         CheckDayCountdown();
     });
+
+    $("#date-time-format-save").click(function(e) {
+        dateFormat = $("#date-format-input option:selected").text();
+        timeFormat = $("#time-format-input option:selected").text();
+        chrome.storage.sync.set({'user-time-format':timeFormat});
+        chrome.storage.sync.set({'user-date-format':dateFormat});
+        GetDate();
+        GetTime();
+    });
+
 
     // ScrollMessage();
 };
