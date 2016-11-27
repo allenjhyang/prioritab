@@ -319,6 +319,10 @@ window.onload = function() {
         GetTime();
     });
 
+    $("#uninstall-extension-button").click(function(e) {
+        chrome.management.uninstallSelf({showConfirmDialog: true});
+    });
+
 
     // ScrollMessage();
 };
