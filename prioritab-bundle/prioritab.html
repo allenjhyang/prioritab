@@ -1,212 +1,207 @@
 <html>
 
 <head>
-    <title>Prioritab</title>
-    <link href="prioritab.css" rel="stylesheet">
-    <script src="lib/moment.min.js"></script>
-    <script src="lib/jquery-1.11.1.min.js"></script>
-    <script src="prioritab.js"></script> </head>
+  <title>Prioritab</title>
+  <link href="prioritab.css" rel="stylesheet">
+  <script src="lib/moment.min.js"></script>
+  <script src="lib/jquery-1.11.1.min.js"></script>
+  <script src="prioritab.js"></script>
+</head>
 
-    <script src="lib/jquery-ui-1.11.2.js"></script>
-    <script src="lib/jquery.inlineedit-prioritab.js"></script>
-    <script src="lib/pubsub.js"></script>
-    <script src="sortaeditalist.js"></script>
+<script src="lib/jquery-ui-1.11.2.js"></script>
+<script src="lib/jquery.inlineedit-prioritab.js"></script>
+<script src="lib/pubsub.js"></script>
+<script src="sortaeditalist.js"></script>
 
-    <script src="lib/colpick.js"></script>
-    <link rel='stylesheet' href='lib/colpick.css' />
-
-    <!-- Note: Icons from flaticons.net -->
+<script src="lib/colpick.js"></script>
+<link rel='stylesheet' href='lib/colpick.css'>
+<link rel="stylesheet" href="/lib/font-awesome.min.css">
 </head>
 
 <body class="main-bgcolor main-font-color">
-    <div id="top-row">
-        <table id="top-row-table"><tbody>
+  <div id="top-row">
+    <table id="top-row-table">
+      <tbody>
         <tr>
-            <td id="nowbox-td">
-                <div id="nowbox">
-                    <div id="clockbox"></div>
-                    <div id="daybox"></div>
-                    <div id="datebox"></div>
+          <td id="nowbox-td">
+            <div id="nowbox">
+              <div id="clockbox"></div>
+              <div id="daybox"></div>
+              <div id="datebox"></div>
+            </div>
+          </td>
+          <td class="gap-cell"></td>
+          <td>
+            <div id="countdownbox">
+
+              <div class="countdown-title">We are now through... </div>
+
+              <div id="countdownbox-justifier">
+                <div id="countdown-day" class="countdown-segment">
+                  <div id="countdown-day-amount" class="countdown-amount"></div>
+                  <div class="countdown-label">...of the day</div>
                 </div>
-            </td>
-            <td class="gap-cell"></td>
-            <td>
-                <div id="countdownbox">
-
-                    <div class="countdown-title">We are now through... </div>
-
-                    <div id="countdownbox-justifier">
-                        <div id="countdown-day" class="countdown-segment">
-                            <div id="countdown-day-amount" class="countdown-amount"></div>
-                            <div class="countdown-label">...of the day</div>
-                        </div>
-                        <div id="countdown-month" class="countdown-segment">
-                            <div id="countdown-month-amount" class="countdown-amount"></div>
-                            <div class="countdown-label">...of the month</div>
-                        </div>
-                        <div id="countdown-year" class="countdown-segment">
-                            <div id="countdown-year-amount" class="countdown-amount"></div>
-                            <div class="countdown-label">...of the year</div>
-                        </div>
-                    </div>
-
+                <div id="countdown-month" class="countdown-segment">
+                  <div id="countdown-month-amount" class="countdown-amount"></div>
+                  <div class="countdown-label">...of the month</div>
                 </div>
-            </td>
+                <div id="countdown-year" class="countdown-segment">
+                  <div id="countdown-year-amount" class="countdown-amount"></div>
+                  <div class="countdown-label">...of the year</div>
+                </div>
+              </div>
+
+            </div>
+          </td>
         </tr>
-        </tbody></table>
-    </div>
+      </tbody>
+    </table>
+  </div>
 
-    <div class="vertical-gap"></div>
+  <div class="vertical-gap"></div>
 
-    <div id="bottom-row">
-        <div id="day-pris" class="priorities">
-            <div class="priorities-title">
-                Today
-            </div>
+  <div id="bottom-row">
+    <div id="day-pris" class="priorities">
+      <div class="priorities-title">
+        Today
+      </div>
 
-            <div id="list-left" class="list-container">
-                <div class="list-scrollable">
-                    <ul id="shown-items-left" class="shown-items"></ul>
-                    <a class="edit-priorities-link shadow-color" href="#">Options</a>
-                    <div class="edit-priorities">
-                        <form id="todo-form-left" data-list="left">
-                            <input class="todo main-bgcolor main-font-color" type="text" data-list="left" />
-                            <input id="submit" type="submit" class="add-item-button main-font-color" value="Add" data-list="left">
-                        </form>
-                        <a href="#" id="sweep-left" class="sweep-link shadow-color" data-list="left">Clear Done</a>
-                        |
-                        <a href="#" id="clear-all-left" class="clear-all-link shadow-color" data-list="left">Clear All</a>
-                        |
-                        <a href="#" class="hide-edit shadow-color">Hide</a>
-                        <div class="edit-message">(You can drag + drop listed priorities)</div>
-                    </div>
-                </div>
-            </div>
-            <div class="scroll-message">(Scroll to see more...)</div>
-
+      <div id="list-left" class="list-container">
+        <div class="list-scrollable">
+          <ul id="shown-items-left" class="shown-items"></ul>
+          <a class="edit-priorities-link shadow-color" href="#">Options</a>
+          <div class="edit-priorities">
+            <form id="todo-form-left" data-list="left">
+              <input class="todo main-bgcolor main-font-color" type="text" data-list="left" />
+              <input id="submit" type="submit" class="add-item-button main-font-color" value="Add" data-list="left">
+            </form>
+            <a href="#" id="sweep-left" class="sweep-link shadow-color" data-list="left">Clear Done</a> |
+            <a href="#" id="clear-all-left" class="clear-all-link shadow-color" data-list="left">Clear All</a> |
+            <a href="#" class="hide-edit shadow-color">Hide</a>
+            <div class="edit-message">(You can drag + drop listed priorities)</div>
+          </div>
         </div>
-        <div id="week-pris" class="priorities">
-            <div class = "priorities-title">
-                This Week
-            </div>
-
-            <div id="list-mid" class="list-container">
-                <div class="list-scrollable">
-                    <ul id="shown-items-mid" class="shown-items"></ul>
-                    <a class="edit-priorities-link shadow-color" href="#">Options</a>
-                    <div class="edit-priorities">
-                        <form id="todo-form-mid" data-list="mid">
-                            <input class="todo main-bgcolor main-font-color" type="text" data-list="mid" />
-                            <input id="submit" type="submit" class="add-item-button main-font-color" value="Add" data-list="mid">
-                        </form>
-                        <a href="#" id="sweep-mid" class="sweep-link shadow-color" data-list="mid">Clear Done</a>
-                        |
-                        <a href="#" id="clear-all-mid" class="clear-all-link shadow-color" data-list="mid">Clear All</a>
-                        |
-                        <a href="#" class="hide-edit shadow-color">Hide</a>
-                        <div class="edit-message">(You can drag + drop listed priorities)</div>
-                    </div>
-                </div>
-            </div>
-            <div class="scroll-message">(Scroll to see more...)</div>
-
-        </div>
-        <div id="month-pris" class="priorities">
-            <div class="priorities-title">
-                This Month
-            </div>
-
-            <div id="list-right" class="list-container">
-                <div class="list-scrollable">
-                    <ul id="shown-items-right" class="shown-items"></ul>
-                    <a class="edit-priorities-link shadow-color" href="#">Options</a>
-                    <div class="edit-priorities">
-                        <form id="todo-form-right" data-list="right">
-                            <input class="todo main-bgcolor main-font-color" type="text" data-list="right" />
-                            <input id="submit" type="submit" class="add-item-button main-font-color" value="Add" data-list="right">
-                        </form>
-                        <a href="#" id="sweep-right" class="sweep-link shadow-color" data-list="right">Clear Done</a>
-                        |
-                        <a href="#" id="clear-all-right" class="clear-all-link shadow-color" data-list="right">Clear All</a>
-                        |
-                        <a href="#" class="hide-edit shadow-color">Hide</a>
-                        <div class="edit-message">(You can drag + drop listed priorities)</div>
-                    </div>
-                </div>
-            </div>
-            <div class="scroll-message">(Scroll to see more...)</div>
-        </div>
+      </div>
+      <div class="scroll-message">(Scroll to see more...)</div>
 
     </div>
+    <div id="week-pris" class="priorities">
+      <div class="priorities-title">
+        This Week
+      </div>
 
-    <div id="customize-corner">
-        <img id="customize-button" src="gear_icon.png" />
-        <div id="customize-selectors" class="main-bgcolor">
-            <h1 id="customize-corner-title">Customization</h1>
-            <h2>Colors:</h2>
-            <button id="background-color-selector" class="color-selector-label cursor-pointer">Background &gt;</span><span id="background-colpick"></button>
-            <br />
-            <button id="font-color-selector" class="color-selector-label cursor-pointer">Font &gt;</button>
-            <br />
-            <button id="shadow-color-selector" class="color-selector-label cursor-pointer">Secondary Font &gt;</button>
-            <br />
-            <br />
-            <button id="restore-default-colors" class="cursor-pointer">Restore default colors</button>
-            <br />
-            <br />
-            <h2>Times:</h2>
-            <input type="checkbox" name="workday-on" class="immune" id="workday-checkbox">Make day timer based on my workday:
-            <br />
-            <span>Workday start: </span>
-            <input type="time" name="workday-start" id="workday-start-timeinput" value="09:00" class="time-input">
-            <span> - Workday end: </span>
-            <input type="time" name="workday-end" id="workday-end-timeinput" value="18:00" class="time-input">
-            <button id="workday-time-save">Save</button>
-            <br />
-            <br />
-            <h2>Date and Time format:</h2>
-            <span>Date format: </span>
-            <select name="date-format-input" id="date-format-input">
+      <div id="list-mid" class="list-container">
+        <div class="list-scrollable">
+          <ul id="shown-items-mid" class="shown-items"></ul>
+          <a class="edit-priorities-link shadow-color" href="#">Options</a>
+          <div class="edit-priorities">
+            <form id="todo-form-mid" data-list="mid">
+              <input class="todo main-bgcolor main-font-color" type="text" data-list="mid" />
+              <input id="submit" type="submit" class="add-item-button main-font-color" value="Add" data-list="mid">
+            </form>
+            <a href="#" id="sweep-mid" class="sweep-link shadow-color" data-list="mid">Clear Done</a> |
+            <a href="#" id="clear-all-mid" class="clear-all-link shadow-color" data-list="mid">Clear All</a> |
+            <a href="#" class="hide-edit shadow-color">Hide</a>
+            <div class="edit-message">(You can drag + drop listed priorities)</div>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-message">(Scroll to see more...)</div>
+
+    </div>
+    <div id="month-pris" class="priorities">
+      <div class="priorities-title">
+        This Month
+      </div>
+
+      <div id="list-right" class="list-container">
+        <div class="list-scrollable">
+          <ul id="shown-items-right" class="shown-items"></ul>
+          <a class="edit-priorities-link shadow-color" href="#">Options</a>
+          <div class="edit-priorities">
+            <form id="todo-form-right" data-list="right">
+              <input class="todo main-bgcolor main-font-color" type="text" data-list="right" />
+              <input id="submit" type="submit" class="add-item-button main-font-color" value="Add" data-list="right">
+            </form>
+            <a href="#" id="sweep-right" class="sweep-link shadow-color" data-list="right">Clear Done</a> |
+            <a href="#" id="clear-all-right" class="clear-all-link shadow-color" data-list="right">Clear All</a> |
+            <a href="#" class="hide-edit shadow-color">Hide</a>
+            <div class="edit-message">(You can drag + drop listed priorities)</div>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-message">(Scroll to see more...)</div>
+    </div>
+
+  </div>
+
+  <div id="customize-corner">
+    <i id="customize-button" class="fa fa-cogs shadow-color" aria-hidden="true"></i>
+    <div id="customize-selectors" class="main-bgcolor">
+      <h1 id="customize-corner-title">Customization</h1>
+      <h2>Colors:</h2>
+      <button id="background-color-selector" class="color-selector-label cursor-pointer">Background &gt;</span><span id="background-colpick"></button>
+      <br />
+      <button id="font-color-selector" class="color-selector-label cursor-pointer">Font &gt;</button>
+      <br />
+      <button id="shadow-color-selector" class="color-selector-label cursor-pointer">Secondary Font &gt;</button>
+      <br />
+      <br />
+      <button id="restore-default-colors" class="cursor-pointer">Restore default colors</button>
+      <br />
+      <br />
+      <h2>Times:</h2>
+      <input type="checkbox" name="workday-on" class="immune" id="workday-checkbox">Make day timer based on my workday:
+      <br />
+      <span>Workday start: </span>
+      <input type="time" name="workday-start" id="workday-start-timeinput" value="09:00" class="time-input">
+      <span> - Workday end: </span>
+      <input type="time" name="workday-end" id="workday-end-timeinput" value="18:00" class="time-input">
+      <button id="workday-time-save">Save</button>
+      <br />
+      <br />
+      <h2>Date and Time format:</h2>
+      <span>Date format: </span>
+      <select name="date-format-input" id="date-format-input">
             <option>MMM D, YYYY</option>
             <option>DD.MM.YYYY</option>
             <option>YYYY-MM-DD</option>
             <option>MM/DD/YY</option>
             </select>
-            <span>Time format: </span>
-            <select name="time-format-input" id="time-format-input">
+      <span>Time format: </span>
+      <select name="time-format-input" id="time-format-input">
             <option>h:mm:ss A</option>
             <option>h:mm A</option>
             <option>HH:mm:ss</option>
             <option>HH:mm</option>
             </select>
-            <button id="date-time-format-save">Save</button>
-            <br />
-            <br />
-            Remove: <button id="uninstall-extension-button">Uninstall Prioritab</button>
-            <br />
-            <br />
-            <button id="hide-customize-selectors" class="cursor-pointer">(Hide)</button>
-        </div>
+      <button id="date-time-format-save">Save</button>
+      <br />
+      <br /> Remove: <button id="uninstall-extension-button">Uninstall Prioritab</button>
+      <br />
+      <br />
+      <button id="hide-customize-selectors" class="cursor-pointer">(Hide)</button>
     </div>
+  </div>
 
-    <div id="update-footer">
-        <span id="update-message">
+  <div id="update-footer">
+    <span id="update-message">
             Update (12/31/2015): Double-click and ENTER to edit! To-dos can also be marked 'done' without deleting the card.<br />
             <span id="update-hide" class="shadow-color">Hide</span>
-        </span>
-    </div>
+    </span>
+  </div>
 
-    <div id="info-corner">
-        <img id="info-button" src="info_icon.png" />
-        <div id="info">
-            <p>From <a href="http://www.bitsandbites.me/?utm_source=prioritab" class="shadow-color">bitsandbites.me</a>.</p>
-            <p>Much thanks for support from the <a href="https://github.com/thelac" class="shadow-color">Leather Apron Club</a>,</p>
-            <p>Github user bitvitez,</p>
-            <p><a href="http://web.koesbong.com/2011/01/24/sortable-and-editable-to-do-list-using-html5s-localstorage/" class="shadow-color">Koes Bong</a> for the backbones of the sortable, editable lists,</p>
-            <p>the <a href="http://colpick.com/plugin" class="shadow-color">Colpick</a> color picker,</p>
-            <p>and <a href="https://chrome.google.com/webstore/detail/currently/ojhmphdkpgbibohbnpbfiefkgieacjmh?hl=en" class="shadow-color">Currently</a> for design inspiration.</p>
-        </div>
+  <div id="info-corner">
+    <i id="info-button" class="fa fa-info-circle shadow-color" aria-hidden="true"></i>
+    <div id="info">
+      <p>From <a href="http://www.bitsandbites.me/?utm_source=prioritab" class="shadow-color">bitsandbites.me</a>.</p>
+      <p>Much thanks for support from the <a href="https://github.com/thelac" class="shadow-color">Leather Apron Club</a>,</p>
+      <p>Github user bitvitez,</p>
+      <p><a href="http://web.koesbong.com/2011/01/24/sortable-and-editable-to-do-list-using-html5s-localstorage/" class="shadow-color">Koes Bong</a> for the backbones of the sortable, editable lists,</p>
+      <p>the <a href="http://colpick.com/plugin" class="shadow-color">Colpick</a> color picker,</p>
+      <p>and <a href="https://chrome.google.com/webstore/detail/currently/ojhmphdkpgbibohbnpbfiefkgieacjmh?hl=en" class="shadow-color">Currently</a> for design inspiration.</p>
     </div>
+  </div>
 </body>
 
 </html>

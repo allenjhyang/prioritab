@@ -43,7 +43,7 @@ $(function() {
                         "<label for='" + toDoKey + "-check'></label>" +
                     "</div>" +
                     "<div class='todo-text'>" + toDoText + "</div>" +
-                    "<div class='pull-right todo-card-right'><a href='#' class='shadow-color'><img src='garbage_icon.png' /></a></div>" +
+                    "<div class='pull-right todo-card-right'><a href='#' class='main-font-color'><i class='fa fa-trash-o' aria-hidden='true'></i></a></div>" +
                 "</li>";
     };
 
