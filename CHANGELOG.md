@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project tries to adhere to [Semantic Versioning](http://semver.org/).
 
+## 1.2.2 - 2017-03-23
+### Added
+- Fade-in animations
+
 ## 1.2.1 - 2017-03-23
 ### Added
 - "Open Sans" font
