@@ -76,6 +76,7 @@ ul li {
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
+  animation: fadeInDown 1s both;
 }
 
 #top-row-table {
@@ -168,6 +169,7 @@ ul li {
   margin-right: auto;
   text-align: justify;
   height: 50%;
+  animation: fadeInUp 1s both;
 }
 
 #bottom-row:after {
@@ -487,4 +489,29 @@ input[type=checkbox]:not(.immune) {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
   filter: alpha(opacity=100);
   opacity: 1;
+}
+
+
+/* KEYFRAMES */
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -1rem, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 1rem, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
