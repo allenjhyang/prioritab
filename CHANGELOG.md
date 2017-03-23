@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project tries to adhere to [Semantic Versioning](http://semver.org/).
 
+## 1.2.1 - 2017-03-23
+### Added
+- "Open Sans" font
+
+### Changed
+- Font stack to match that of [Currently](https://chrome.google.com/webstore/detail/currently/ojhmphdkpgbibohbnpbfiefkgieacjmh?hl=en)
+
 ## 1.2.0 - 2017-03-23
 ### Added
 - Font Awesome 4.7.0, bringing Prioritab design closer to Currently, which makes use of FA
