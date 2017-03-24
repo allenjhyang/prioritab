@@ -364,12 +364,6 @@ input[type="text"]:focus {
   padding: 5px;
 }
 
-.colpick {
-  bottom: 20px;
-  left: 175px;
-  top: auto;
-}
-
 .cursor-pointer {
   cursor: pointer;
 }

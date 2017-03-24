@@ -2,7 +2,21 @@
 All notable changes to this project will be documented in this file.
 This project tries to adhere to [Semantic Versioning](http://semver.org/).
 
-## 1.2.3 - 2017-03-23
+## 1.3.0 - 2017-03-25
+### Added
+- A few accessibility improvements
+
+### Changed
+- Colpick to [Momo Kornher's fork](https://github.com/mrgrain/colpick), which is the most patched
+- Minified Colpick js and css
+
+## 1.2.4 - 2017-03-25
+### Changed
+- logo with a slightly different cleaner design
+- manifest.json to reflect new logo
+- credits to include Griffen Edge
+
+## 1.2.3 - 2017-03-24
 ### Changed
 - Fade-in animations to be even better
 - Some absolute units (px) to relative units (rem)
