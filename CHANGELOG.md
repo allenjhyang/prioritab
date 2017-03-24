@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project tries to adhere to [Semantic Versioning](http://semver.org/).
 
+## 1.2.3 - 2017-03-23
+### Changed
+- Fade-in animations to be even better
+- Some absolute units (px) to relative units (rem)
+
 ## 1.2.2 - 2017-03-23
 ### Added
 - Fade-in animations
