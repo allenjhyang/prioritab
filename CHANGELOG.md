@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 This project tries to adhere to [Semantic Versioning](http://semver.org/).
 
 ## 1.3.0 - 2017-03-25
+### Changed
+- Updated moment.js to version 2.18.1
+- Updated jquery-ui.js to version 1.12.1
+- Minified pubsub.js
+
+## 1.3.0 - 2017-03-25
 ### Added
 - A few accessibility improvements
 
