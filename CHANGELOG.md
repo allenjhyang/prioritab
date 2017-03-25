@@ -2,7 +2,15 @@
 All notable changes to this project will be documented in this file.
 This project tries to adhere to [Semantic Versioning](http://semver.org/).
 
-## 1.3.0 - 2017-03-25
+## 1.5.0 - 2017-03-25
+### Changed
+- Redesigned squaredThree to use fa-check
+- Changed default colors to be the same as Currently
+- Aligned everything using units relative to browser's default font size (normally 16px)
+  - This caused some elements to move around a little
+- Moved sortaeditalist.js to \lib
+
+## 1.4.0 - 2017-03-25
 ### Changed
 - Updated moment.js to version 2.18.1
 - Updated jquery-ui.js to version 1.12.1
