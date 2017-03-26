@@ -1,14 +1,16 @@
 {
-    "name": "Prioritab",
-    "description": "A new tab page to remind you of your priorities",
-    "version": "1.1.2",
-    "chrome_url_overrides": {
-        "newtab": "prioritab.html"
-    },
-    "icons": {
-        "16": "prioritab_logo_v1_16.png",
-        "128": "prioritab_logo_v1_128.png"
-    },
-    "manifest_version": 2,
-    "permissions": ["storage"]
+  "name": "Prioritab",
+  "description": "A new tab page to remind you of your priorities",
+  "version": "1.1.2",
+  "chrome_url_overrides": {
+    "newtab": "prioritab.html"
+  },
+  "icons": {
+    "16": "prioritab_logo_v2_16.png",
+    "32": "prioritab_logo_v2_32.png",
+    "48": "prioritab_logo_v2_48.png",
+    "128": "prioritab_logo_v2_128.png"
+  },
+  "manifest_version": 2,
+  "permissions": ["storage"]
 }
