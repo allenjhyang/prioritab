@@ -26,30 +26,20 @@
 
 body {
   font-size: 1.125rem;
-  min-width: 1200px;
-  max-width: 1800px;
+  max-width: 130rem;
+  padding-left: 10%;
+  padding-right: 10%;
+  margin-left: auto;
+  margin-right: auto;
   cursor: default;
-  user-select: none;
 }
 
-.vertical-gap {
-  height: 2rem;
-  display: block;
-  clear: both;
+.cursor-pointer {
+  cursor: pointer;
 }
 
-ul li {
-  font-size: 1em;
-  line-height: 1.2;
-  margin-bottom: .125rem;
-  cursor: -webkit-grab;
-  cursor: grab;
-  list-style-type: none;
-}
-
-ul li:active {
-  cursor: -webkit-grabbing;
-  cursor: grabbing;
+.pull-right {
+  float: right;
 }
 
 
@@ -75,44 +65,37 @@ ul li:active {
   border-color: rgba(255, 255, 255, 0.3);
 }
 
+::-webkit-scrollbar-thumb {
+  background-color: white;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
 
 /* TOP ROW - DATETIME & COUNTDOWN */
 
 #top-row {
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
   margin-top: 3rem;
   margin-bottom: 2rem;
   animation: fadeInDown 1s both;
-}
-
-#top-row-table {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.gap-cell {
-  width: 5%;
-  max-width: .625rem;
-}
-
-#nowbox-td {
-  width: 30%;
 }
 
 #nowbox {
   font-size: 1.5rem;
   margin: .5rem;
   text-align: center;
+  width: 30%;
 }
 
 #clockbox {
-  border: 1px solid;
-  padding: .5rem;
-  font-size: 2em;
+  font-size: 3em;
   width: 100%;
+  border: 1px solid;
+  padding: 0.5rem;
 }
 
 #daybox {
@@ -122,6 +105,7 @@ ul li:active {
 #countdownbox {
   font-size: 1em;
   margin: .5rem;
+  width: 63%;
 }
 
 .countdown-title {
@@ -153,25 +137,16 @@ ul li:active {
 }
 
 .countdown-amount {
-  font-size: 2.75em;
+  font-size: 3rem;
 }
 
 
 /* BOTTOM ROW - PRIORITIES */
 
 #bottom-row {
-  clear: both;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: justify;
+  display: flex;
+  justify-content: space-between;
   height: 50%;
-}
-
-#bottom-row:after {
-  content: "";
-  width: 100%;
-  display: inline-block;
 }
 
 .priorities {
@@ -204,13 +179,13 @@ ul li:active {
 
 .shown-items {
   text-align: left;
-  min-height: 0.5rem;
+  min-height: .5rem;
 }
 
 .priorities-title {
   text-align: center;
   border-bottom: 1px solid;
-  padding-bottom: 0.25rem;
+  padding-bottom: .25rem;
   font-size: 1.5em;
 }
 
@@ -232,12 +207,24 @@ ul li:active {
 }
 
 ul {
-  padding: 0;
   margin: .5rem;
 }
 
 li a {
   text-decoration: none;
+}
+
+ul li {
+  font-size: 1em;
+  margin-bottom: .5rem;
+  cursor: -webkit-grab;
+  cursor: grab;
+  list-style-type: none;
+}
+
+ul li:active {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
 }
 
 .edit-priorities-link {
@@ -295,42 +282,24 @@ input[type="text"]:focus {
   text-decoration: line-through;
 }
 
-.pull-right {
-  float: right;
-}
-
 ::-webkit-scrollbar {
   width: .25rem;
 }
-
-::-webkit-scrollbar-thumb {
-  /* This is the part of the scroll that represents where you are */
-  background-color: white;
-}
-
-
-/* this will style the thumb, ignoring the track */
-
-::-webkit-scrollbar-track {
-  /* This is what the thumb travels on */
-  background-color: rgba(0, 0, 0, 0.3);
-}
-
-
-/* the new scrollbar will have a flat appearance with the set background color */
 
 
 /* COLOR CORNER */
 
 #customize-corner {
   position: fixed;
-  left: 1rem;
-  bottom: 1rem;
+  left: 0;
+  bottom: 0;
+  margin: 1rem;
 }
 
 #customize-button {
-  font-size: 2em;
+  font-size: 2rem;
   cursor: pointer;
+  animation: fadeIn 1s both;
 }
 
 #customize-selectors {
@@ -342,10 +311,6 @@ input[type="text"]:focus {
   box-shadow: 0 .5rem 1rem #000;
 }
 
-.cursor-pointer {
-  cursor: pointer;
-}
-
 #workday-checkbox {
   vertical-align: middle;
 }
@@ -355,12 +320,14 @@ input[type="text"]:focus {
 
 #info-corner {
   position: fixed;
-  right: 1rem;
-  bottom: 1rem;
+  right: 0;
+  bottom: 0;
+  margin: 1rem;
 }
 
 #info-button {
-  font-size: 2em;
+  font-size: 2rem;
+  animation: fadeIn 1s both;
 }
 
 #info {
@@ -395,15 +362,66 @@ input[type="text"]:focus {
 }
 
 
+/* MEDIA QUERIES */
+
+@media only screen and (max-width: 113rem) {
+  #clockbox {
+    font-size: 2em;
+  }
+}
+
+@media only screen and (max-width: 59rem) {
+  #top-row {
+    flex-wrap: wrap;
+    margin-top: 5%;
+  }
+  #countdownbox {
+    width: 100%;
+  }
+  .countdown-amount {
+    font-size: 2rem;
+  }
+  #nowbox {
+    width: 100%;
+  }
+  #clockbox {
+    border: none;
+    font-size: 4em;
+  }
+  #bottom-row {
+    flex-wrap: wrap;
+    height: auto;
+  }
+  .priorities {
+    width: 100%;
+  }
+  .list-scrollable {
+    max-height: 15rem;
+  }
+}
+
+@media only screen and (max-width: 46rem) {
+  #clockbox {
+    font-size: 3em;
+  }
+}
+
+@media only screen and (max-width: 35rem) {
+  #clockbox {
+    font-size: 2em;
+  }
+}
+
+
 /* SQUARED THREE */
 
 input[type=checkbox]:not(.immune) {
   visibility: hidden;
+  margin-right: 1rem;
 }
 
 .squaredThree {
   position: relative;
-  margin-right: .5em;
 }
 
 .squaredThree label {
@@ -411,16 +429,20 @@ input[type=checkbox]:not(.immune) {
   position: absolute;
   width: 1em;
   height: 1em;
+  top: 12.5%;
   left: 0;
-  border-radius: .25rem;
-  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, .4);
+  border-radius: 1px;
+  border: 1px solid;
 }
 
 .squaredThree label:after {
+  opacity: 0;
+  position: absolute;
+  color: white;
   font-family: "FontAwesome";
   content: "\f00c";
-  color: #FFF;
-  opacity: 0;
+  left: 0;
+  top: 0;
 }
 
 .squaredThree label:hover::after {
@@ -448,10 +470,19 @@ input[type=checkbox]:not(.immune) {
 @keyframes fadeInUp {
   0% {
     opacity: 0;
-    -webkit-transform: translate3d(0, 2rem, 0);
+    transform: translate3d(0, 2rem, 0);
   }
   100% {
     opacity: 1;
-    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

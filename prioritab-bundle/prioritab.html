@@ -1,54 +1,38 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
   <title>Prioritab</title>
   <link href="prioritab.css" rel="stylesheet">
   <link rel='stylesheet' href='lib/colpick.min.css'>
-  <link rel="stylesheet" href="/lib/font-awesome.min.css">
+  <link rel="stylesheet" href="lib/font-awesome.min.css">
 </head>
 
 <body class="main-bgcolor main-font-color">
   <div id="top-row">
-    <table id="top-row-table">
-      <tbody>
-        <tr>
-          <td id="nowbox-td">
-            <div id="nowbox">
-              <div id="clockbox"></div>
-              <div id="daybox"></div>
-              <div id="datebox"></div>
-            </div>
-          </td>
-          <td class="gap-cell"></td>
-          <td>
-            <div id="countdownbox">
-
-              <div class="countdown-title">We are now through... </div>
-
-              <div id="countdownbox-justifier">
-                <div id="countdown-day" class="countdown-segment">
-                  <div id="countdown-day-amount" class="countdown-amount"></div>
-                  <div class="countdown-label">...of the day</div>
-                </div>
-                <div id="countdown-month" class="countdown-segment">
-                  <div id="countdown-month-amount" class="countdown-amount"></div>
-                  <div class="countdown-label">...of the month</div>
-                </div>
-                <div id="countdown-year" class="countdown-segment">
-                  <div id="countdown-year-amount" class="countdown-amount"></div>
-                  <div class="countdown-label">...of the year</div>
-                </div>
-              </div>
-
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div id="nowbox">
+      <div id="clockbox"></div>
+      <div id="daybox"></div>
+      <div id="datebox"></div>
+    </div>
+    <div id="countdownbox">
+      <div class="countdown-title">We are now through... </div>
+      <div id="countdownbox-justifier">
+        <div id="countdown-day" class="countdown-segment">
+          <div id="countdown-day-amount" class="countdown-amount"></div>
+          <div class="countdown-label">...of the day</div>
+        </div>
+        <div id="countdown-month" class="countdown-segment">
+          <div id="countdown-month-amount" class="countdown-amount"></div>
+          <div class="countdown-label">...of the month</div>
+        </div>
+        <div id="countdown-year" class="countdown-segment">
+          <div id="countdown-year-amount" class="countdown-amount"></div>
+          <div class="countdown-label">...of the year</div>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="vertical-gap"></div>
-
   <div id="bottom-row">
     <div id="day-pris" class="priorities">
       <div class="priorities-title">
@@ -71,7 +55,6 @@
         </div>
       </div>
     </div>
-
     <div id="week-pris" class="priorities">
       <div class="priorities-title">
         This Week
@@ -93,7 +76,6 @@
         </div>
       </div>
     </div>
-
     <div id="month-pris" class="priorities">
       <div class="priorities-title">
         This Month
@@ -116,23 +98,22 @@
       </div>
     </div>
   </div>
-
   <div id="customize-corner">
     <i id="customize-button" class="fa fa-cogs shadow-color" title="Customization"></i>
     <div id="customize-selectors" class="main-bgcolor">
       <h1 id="customize-corner-title">Customization</h1>
       <h2>Colors:</h2>
-      <button id="background-color-selector" class="color-selector-label cursor-pointer">Background &gt;</button>
+      <button id="background-color-selector" class="color-selector-label cursor-pointer">Background <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
       <br />
-      <button id="font-color-selector" class="color-selector-label cursor-pointer">Font &gt;</button>
+      <button id="font-color-selector" class="color-selector-label cursor-pointer">Font <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
       <br />
-      <button id="shadow-color-selector" class="color-selector-label cursor-pointer">Secondary Font &gt;</button>
+      <button id="shadow-color-selector" class="color-selector-label cursor-pointer">Secondary Font <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
       <br />
       <br />
       <button id="restore-default-colors" class="cursor-pointer">Restore default colors</button>
       <br />
       <br />
-      <h2>Times:</h2>
+      <h2>Workday:</h2>
       <input type="checkbox" name="workday-on" class="immune" id="workday-checkbox">Make day timer based on my workday:
       <br />
       <span>Workday start: </span>
@@ -145,18 +126,31 @@
       <h2>Date and Time format:</h2>
       <span>Date format: </span>
       <select name="date-format-input" id="date-format-input">
-            <option>MMM D, YYYY</option>
-            <option>DD.MM.YYYY</option>
-            <option>YYYY-MM-DD</option>
-            <option>MM/DD/YY</option>
-            </select>
+        <optgroup label="American">
+          <option>MM/DD/YYYY</option>
+          <option>MMM D, YYYY</option>
+          <option>MMMM D, YYYY</option>
+        </optgroup>
+        <optgroup label="International">
+          <option>DD/MM/YYYY</option>
+          <option>D MMM YYYY</option>
+          <option>D MMMM YYYY</option>
+        </optgroup>
+        <optgroup label="ISO 8601">
+          <option>YYYY-MM-DD</option>
+        </optgroup>
+      </select>
       <span>Time format: </span>
       <select name="time-format-input" id="time-format-input">
-            <option>h:mm:ss A</option>
-            <option>h:mm A</option>
-            <option>HH:mm:ss</option>
-            <option>HH:mm</option>
-            </select>
+        <optgroup label="12 hour">
+          <option>h:mm A</option>
+          <option>h:mm:ss A</option>
+        </optgroup>
+        <optgroup label="24 hour">
+          <option>HH:mm</option>
+          <option>HH:mm:ss</option>
+        </optgroup>
+      </select>
       <button id="date-time-format-save">Save</button>
       <br />
       <br /> Remove: <button id="uninstall-extension-button">Uninstall Prioritab</button>
@@ -172,7 +166,6 @@
             <span id="update-hide" class="shadow-color">Hide</span>
     </span>
   </div>
-
   <div id="info-corner">
     <i id="info-button" class="fa fa-info-circle shadow-color" title="Information Corner"></i>
     <div id="info">
@@ -186,14 +179,14 @@
       <p>and <a href="https://chrome.google.com/webstore/detail/currently/ojhmphdkpgbibohbnpbfiefkgieacjmh?hl=en" class="shadow-color">Currently</a> for design inspiration.</p>
     </div>
   </div>
-  <script src="lib/moment.min.js"></script>
-  <script src="lib/jquery-1.11.1.min.js"></script>
+  <script src="lib/jquery.min.js"></script>
   <script src="lib/jquery-ui.min.js"></script>
   <script src="lib/jquery.inlineedit-prioritab.js"></script>
+  <script src="lib/moment.min.js"></script>
   <script src="lib/pubsub.min.js"></script>
   <script src="lib/sortaeditalist.js"></script>
   <script src="lib/colpick.min.js"></script>
-  <script src="prioritab.js"></script>
+  <script src="prioritab.min.js"></script>
 </body>
 
 </html>
