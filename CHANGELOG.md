@@ -2,11 +2,17 @@
 All notable changes to this project will be documented in this file.
 This project tries to adhere to [Semantic Versioning](http://semver.org/).
 
-## 1.3.0 - 2017-03-25
+## 2.0.0 - 2017-03-26
 ### Changed
-- Updated moment.js to version 2.18.1
-- Updated jquery-ui.js to version 1.12.1
-- Minified pubsub.js
+- Implemented flex-box on lots more elements
+- Made Prioritab responsive
+- Redesigned a lot of things
+- Edited some of the .js files to make them smaller/more efficient
+- Redesigned squaredThree to use fa-check
+- Changed default colors to be the same as Currently
+- Aligned everything using units relative to browser's default font size (normally 16px)
+  - This caused some elements to move around a little
+- Moved sortaeditalist.js to \lib
 
 ## 1.3.0 - 2017-03-25
 ### Added
@@ -15,6 +21,9 @@ This project tries to adhere to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Colpick to [Momo Kornher's fork](https://github.com/mrgrain/colpick), which is the most patched
 - Minified Colpick js and css
+- Updated moment.js to version 2.18.1
+- Updated jquery-ui.js to version 1.12.1
+- Minified pubsub.js
 
 ## 1.2.4 - 2017-03-25
 ### Changed
