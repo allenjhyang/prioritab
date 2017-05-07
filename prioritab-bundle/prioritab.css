@@ -154,15 +154,18 @@ body {
   display: inline-block;
   vertical-align: top;
   margin: .5rem;
-  animation: fadeInUp 1s both;
+}
+
+#day-pris {
+  animation: bounceIn 1s both;
 }
 
 #week-pris {
-  animation-delay: 150ms;
+  animation: fadeInUp 1s 150ms both;
 }
 
 #month-pris {
-  animation-delay: 300ms;
+  animation: fadeInUp 1s 300ms both;
 }
 
 .list-container {
@@ -484,5 +487,22 @@ input[type=checkbox]:not(.immune) {
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
   }
 }
