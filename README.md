@@ -30,3 +30,18 @@ Step 3:	A list of all extensions will appear. Find the Prioritab card. To enable
 Step 1: Click on Customization (cogs) in the bottom left corner
 
 Step 2: Click on the "Uninstall Prioritab" button
+
+## Credits
+From [bitsandbites.me](http://www.bitsandbites.me/?utm_source=prioritab).
+
+Much thanks for support from the [Leather Apron Club](https://github.com/thelac),
+
+[Griffen Edge](https://griffedge.github.io/) for design, code and logo improvements,
+
+Github users [bitvitez](https://github.com/bitvitez), [eagle6525](https://github.com/eagle6525), [amhspencer](https://github.com/amhspencer),
+
+[Koes Bong](http://web.koesbong.com/2011/01/24/sortable-and-editable-to-do-list-using-html5s-localstorage/) for the backbones of the sortable, editable lists,
+
+the [Colpick](https://github.com/mrgrain/colpick) color picker,
+
+and [Currently](https://chrome.google.com/webstore/detail/currently/ojhmphdkpgbibohbnpbfiefkgieacjmh?hl=en) for design inspiration.
