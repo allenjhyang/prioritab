@@ -80,6 +80,7 @@ body {
   display: flex;
   justify-content: space-between;
   margin-top: 3rem;
+  margin-bottom: 2rem;
   animation: fadeInDown 1s both;
 }
 
@@ -146,7 +147,6 @@ body {
   display: flex;
   justify-content: space-between;
   height: 50%;
-  margin-top: 2rem;
 }
 
 .priorities {
