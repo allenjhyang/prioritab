@@ -45,28 +45,36 @@ body {
 
 /* Colors */
 
+:root {
+  --main-bg-color: #222222;
+  --main-font-color: white;
+  --shadow-color: rgba(255, 255, 255, 0.3);
+  --main-border-color: white;
+  --shadow-border-color: rgba(255, 255, 255, 0.3);
+}
+
 .main-bgcolor {
-  background-color: #222222;
+  background-color: var(--main-bg-color);
 }
 
 .main-font-color {
-  color: white;
+  color: var(--main-font-color);
 }
 
 .shadow-color {
-  color: rgba(255, 255, 255, 0.3);
+  color: var(--shadow-color);
 }
 
 .main-border-color {
-  border-color: white;
+  border-color: var(--main-border-color);
 }
 
 .shadow-border-color {
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: var(--shadow-border-color);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: white;
+  background-color: var(--main-font-color);
 }
 
 ::-webkit-scrollbar-track {

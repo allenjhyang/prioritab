@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project tries to adhere to [Semantic Versioning](http://semver.org/).
 
+## 3.0.0 - 2025-07-15
+### Changed
+- Updated the extension for Manifest v3 due to Chrome's deprecation of MV2 extension support.
+  - Updated manifest.json to version 3
+  - Removed chrome.management.uninstallSelf() API usage -- deprecated API
+  - Replaced dynamic style injection with CSS custom properties
+  - Added Content Security Policy to manifest
+
 ## 2.0.0 - 2017-03-26
 ### Changed
 - Implemented flex-box on lots more elements
